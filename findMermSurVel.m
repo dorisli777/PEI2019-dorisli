@@ -1,5 +1,5 @@
-function [surfaceVel,surVelX,surVelY]=findMermSurVel(dist,distX,distY,timeElapsed,sz,col,n)
-% [surfaceVel,surVelX,surVelY]=findMermSurVel(dist,distX,distY,timeElapsed,sz,col,n)
+function [surfaceVel,surVelX,surVelY]=findMermSurVel(dist,distX,distY,timeElapsed,split,sz,col,n)
+% [surfaceVel,surVelX,surVelY]=findMermSurVel(dist,distX,distY,timeElapsed,split,sz,col,n)
 % 
 % Inputs:
 % dist             From findMermVel, an array of great circle distances 
@@ -10,6 +10,7 @@ function [surfaceVel,surVelX,surVelY]=findMermSurVel(dist,distX,distY,timeElapse
 %                  (Y-component) between origin and each mermaid location
 % timeElapsed      From findMermVel, an array of time (in seconds) passed 
 %                  between each point and the point directly before it
+% split            From parseMermData, the array of strings from data file
 % sz               From parseMermData, how many rows in data file 
 % col              From parseMermData, number of columns in data file 
 % n                From parseMermData, size of split array 

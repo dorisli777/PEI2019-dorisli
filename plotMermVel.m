@@ -27,10 +27,10 @@ function [velocity,surfaceVel,deepVel]=plotMermVel(webpage)
 [velocity,velX,velY,dist,distX,distY]=findMermVel(timeElapsed,lat,lon,n);
 
 % find surface velocities
-[surfaceVel,surVelX,surVelY]=findMermSurVel(dist,distX,distY,timeElapsed,sz,col,n);
+[surfaceVel,surVelX,surVelY]=findMermSurVel(dist,distX,distY,timeElapsed,split,sz,col,n);
 
 % find deep velocities 
-[deepVel,deepVelX,deepVelY]=findMermDeepVel(dist,distX,distY,timeElapsed,sz,col,n);
+[deepVel,deepVelX,deepVelY]=findMermDeepVel(dist,distX,distY,timeElapsed,split,sz,col,n);
 
 % plotting the velocities  
 figure(1)

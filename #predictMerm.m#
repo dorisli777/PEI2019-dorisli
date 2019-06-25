@@ -1,4 +1,4 @@
-function [lonPred,latPred]=predictMerm(webpage,mermaidNum,time,hdcut)
+Zfunction [lonPred,latPred]=predictMerm(webpage,mermaidNum,time,hdcut)
   % [lonPred,latPred]=predictMerm(webpage,mermaidNum,time,hdcut)
   % 
   % Inputs:
@@ -41,11 +41,10 @@ end
 [pLon,SLon,muLon] = polyfit(timeElapsed(hdcut+1:end),lon(hdcut+1:end),7);
 [pLat,SLat,muLat] = polyfit(timeElapsed(hdcut+1:end),lat(hdcut+1:end),7);
 
-% convert time into date vector
+% predictions
 tim = datevec(time);
 t = etime(tim,origin); 
 
-% predictions and line fitting
 [lonP,delta] = polyval(pLon,t,SLon,muLon);
 lonPred = strcat(num2str(lonP),{'+/-'},num2str(delta));
 disp('Predicted longitude = ')
