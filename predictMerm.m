@@ -70,8 +70,6 @@ t = etime(tim,origin);
 [lonP,delta] = polyval(pLon,t,SLon,muLon);
 lonPred = strcat(num2str(lonP),{' +/- '},num2str(delta));
 disp(sprintf('Predicted longitude = %s', char(lonPred)))
-% disp('StDev = ')
-% disp(muLon(2))
 
 % finding lon correlation coefficent
 y1 = polyval(pLon,timeElapsed(end-numPts:end),[],muLon);
@@ -85,8 +83,6 @@ resLon = lon(end-numPts:end)-y1;
 [latP,delta] = polyval(pLat,t,SLat,muLat);
 latPred = strcat(num2str(latP),{' +/- '},num2str(delta));
 disp(sprintf('Predicted latitude = %s', char(latPred)))
-% disp('StDev = ')
-% disp(muLat(2))
 
 % finding lat correlation coefficent
 y2 = polyval(pLat,timeElapsed(end-numPts:end),[],muLat);
