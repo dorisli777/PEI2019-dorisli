@@ -15,8 +15,9 @@ function [velocity,surfaceVel,deepVel]=plotMermVel(webpage,hdcut)
 % This function plots the velocity, surface velocity, and deep velocities
 % of the mermaid locations. 
 %
-% Last modified by dorisli on June 26, 2019
+% Last modified by dorisli on June 26, 2019 ver. R2018a
 
+defval('webpage','http://geoweb.princeton.edu/people/simons/SOM/P017_030.txt')
 defval('hdcut',0)
 
 % read in and parse the data   
@@ -43,11 +44,13 @@ clf
 
 quiver(lon,lat,velX,velY,'filled')
 grid on
-title('Plot of P017 Mermaids (Nov 27, 2018 - Jun 12, 2019)')
+title(sprintf('Plot of %s Mermaids (%s to %s)', char(split(1)),...
+    char(split(2)), char(split(2 + sz - col))))
 ylabel('Latitude (in degrees)')
 xlabel('Longitude (in degrees)')
 legend('Velocities (km/s)')
 
+% plotting surface and deep velocities 
 figure(2)
 clf
 
@@ -56,7 +59,8 @@ hold on
 quiver(lon,lat,surVelX,surVelY,'filled')
 quiver(lon,lat,deepVelX,deepVelY,'filled')
 grid on
-title('Plot of P017 Mermaids (Nov 27, 2018 - Jun 12, 2019)')
+title(sprintf('Plot of %s Mermaids (%s to %s)', char(split(1)),...
+    char(split(2)), char(split(2 + sz - col))))
 ylabel('Latitude (in degrees)')
 xlabel('Longitude (in degrees)')
 legend('Mermaid Locations','Surface Velocity (km/s)','Deep Velocity (km/s)')

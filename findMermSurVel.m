@@ -26,7 +26,7 @@ function [surfaceVel,surVelX,surVelY]=findMermSurVel(dist,distX,distY,timeElapse
 % components at each mermaid location by calculating the velocities between
 % the points that occur on the same day. 
 % 
-% Last modified by dorisli on June 25,2019 
+% Last modified by dorisli on June 25,2019 ver. R2018a
 
 surfaceVel = zeros(1,n);
 surVelX = zeros(1,n);

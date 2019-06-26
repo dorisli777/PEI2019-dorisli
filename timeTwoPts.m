@@ -15,11 +15,10 @@ function [timeElapsed]=timeTwoPts(split,sz,col,n)
 % This function calculates the time elapsed (in seconds) between each
 % mermaid location and the location previous to it (n and n - 1). 
 % 
-% Last modified by dorisli on June 25,2019
+% Last modified by dorisli on June 25,2019 ver. R2018a
 
 timeElapsed = zeros(1,n);
 
-% calculating elapsed time between point n and n-1
 x = 2;
 for i = (2 + col):col:sz
     d = strcat(split(i),{' '},split(i + 1));

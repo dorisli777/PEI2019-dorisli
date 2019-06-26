@@ -16,7 +16,7 @@ function [split,sz,col,n]=parseMermData(webpage,hdcut)
 % This function takes in Mermaid data and separates it by whitespace into 
 % different string arrays.
 % 
-% Last modified by dorisli June 26, 2019
+% Last modified by dorisli June 26, 2019 ver. R2018a
 
 defval('webpage','http://geoweb.princeton.edu/people/simons/SOM/P017_030.txt')
 defval('hdcut',0)
@@ -28,7 +28,12 @@ spli = strsplit(webname);
 % Number of columns of the data file
 col = 15;
 
-split = spli((hdcut*col)+1:end);
+% check to make sure hdcut is less than num of data points
+if (hdcut > (length(spli) - 1)/col)
+     throw(MException('MyComponent:noSuchVariable',...
+        'Value of hdcut exceeds number of data points'))
+end
 
+split = spli((hdcut*col)+1:end);
 sz = length(split)-1;
 n = sz/col; 

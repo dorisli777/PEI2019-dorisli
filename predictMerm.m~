@@ -21,7 +21,7 @@ function [lonPred,latPred]=predictMerm(webpage,mermaidNum,time,hdcut)
 % This function gives a prediction for a mermaid location (lon,lat) given
 % a specified time, data file, and mermaid number using polyfit. 
 % 
-% Last modified by dorisli on June 26,2019 ver. R2018a
+% Last modified by dorisli on June 26,2019 ver.R2018a
 
 defval('webpage','http://geoweb.princeton.edu/people/simons/SOM/P017_030.txt')
 defval('mermaidNum','P017')
@@ -46,10 +46,10 @@ if (strcmp(split(1),mermaidNum) == 0)
         'Mermaid Num provided is not the same as file'))
 end
 
-% check to make sure # of regression pts is fewer than # of data pts
-if (numPts > n)
+% check to make sure number of regression pts is less than num of data pts
+if (numPts > length(spli) - 1)
      throw(MException('MyComponent:noSuchVariable',...
-        'Value of pts for regression exceeds number of data points'))
+        'Value of hdcut exceeds number of data points'))
 end
 
 % initialize lat and lon arrays
@@ -75,6 +75,9 @@ disp(sprintf('Predicted longitude = %s', char(lonPred)))
 
 % finding lon correlation coefficent
 y1 = polyval(pLon,timeElapsed(end-numPts:end),[],muLon);
+% rLon = corrcoef(timeElapsed(end-numPts:end),y1);
+% disp('Correlation Coefficient = ')
+% disp(rLon(1,2)^2)
 rLon = 1 - (SLon.normr/norm(lon(end-numPts:end) - mean(lon(end-numPts:end))))^2;
 disp(sprintf('R^2 value for lon = %d\n',rLon))
 
@@ -90,6 +93,9 @@ disp(sprintf('Predicted latitude = %s', char(latPred)))
 
 % finding lat correlation coefficent
 y2 = polyval(pLat,timeElapsed(end-numPts:end),[],muLat);
+% rLat = corrcoef(timeElapsed(end-numPts:end),y2);
+% disp('Correlation Coefficient = ')
+% disp(rLat(1,2)^2)
 rLat = 1 - (SLat.normr/norm(lat(end-numPts:end) - mean(lat(end-numPts:end))))^2;
 disp(sprintf('R^2 value for lat = %d ',rLat))
 

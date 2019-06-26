@@ -26,7 +26,7 @@ function [deepVel,deepVelX,deepVelY]=findMermDeepVel(dist,distX,distY,timeElapse
 % components at each mermaid location by calculating the velocities between
 % the points that occur on different days. 
 % 
-% Last modified by dorisli on June 25,2019 
+% Last modified by dorisli on June 25,2019 ver. R2018a
 
 deepVel = zeros(1,n);
 deepVelX = zeros(1,n);

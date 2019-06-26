@@ -18,7 +18,7 @@ function [speed,surfaceSpeed,deepSpeed]=findSpeeds(velocity,surfaceVel,deepVel)
 % This function calculates the speeds (km/s) of the velocities, surface
 % velocities, and deep velocities at each mermaid location. 
 % 
-% Last modified by dorisli on June 25, 2019
+% Last modified by dorisli on June 25, 2019 ver. R2018a
 
 speed = zeros(1,n);
 surfaceSpeed = zeros(1,n);

@@ -14,8 +14,9 @@ function [lat,lon]=findMermLatLon(webpage,hdcut)
 % This function finds the latitudes and longitudes of the mermaid 
 % locations.
 % 
-% Last modified by dorisli on June 26, 2019
+% Last modified by dorisli on June 26, 2019 ver. R2018a
 
+defval('webpage','http://geoweb.princeton.edu/people/simons/SOM/P017_030.txt')
 defval('hdcut',0)
 
 % read in and parse the data

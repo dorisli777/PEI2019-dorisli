@@ -21,7 +21,7 @@ function [velocity,velX,velY,dist,distX,distY]=findMermVel(timeElapsed,lat,lon,n
 % This function computes the velocity (km/s) and its X and Y components of 
 % each mermaid location based off the initial data point (origin).
 % 
-% Last modified by dorisli on June 25,2019
+% Last modified by dorisli on June 25,2019 ver. R2018a
 
 velocity = zeros(1,n);
 velX = zeros(1,n);

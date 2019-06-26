@@ -16,9 +16,8 @@ function [timeElapsed,origin]=timePassed(split,sz,col,n)
 % This function gives the time elapsed between the first point (origin)
 % and every other point in the data file. 
 % 
-% Last modified by dorisli on June 25,2019
-
-% calculating elapsed time between origin and current point 
+% Last modified by dorisli on June 25,2019 ver. R2018a
+ 
 timeElapsed = zeros(1,n);
 d = strcat(split(2),{' '},split(3));
 origin = datevec(d);
