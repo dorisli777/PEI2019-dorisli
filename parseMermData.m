@@ -1,9 +1,10 @@
-function [split,sz,col,n]=parseMermData(webpage)
-% [split,sz,col,n]=parseMermData(webpage)
+function [split,sz,col,n]=parseMermData(webpage,hdcut)
+% [split,sz,col,n]=parseMermData(webpage,hdcut)
 % 
 % Input:
 % webpage      The name of the webpage with data
-%             (ex: 'http://geoweb.princeton.edu/people/simons/SOM/P017_030.txt')
+%             (ex:'http://geoweb.princeton.edu/people/simons/SOM/P017_030.txt')
+% hdcut        Number of lines to cut off the top of the file (def: 0)
 % 
 % Output:
 % split        The array of strings from data file
@@ -15,13 +16,19 @@ function [split,sz,col,n]=parseMermData(webpage)
 % This function takes in Mermaid data and separates it by whitespace into 
 % different string arrays.
 % 
-% Last modified by dorisli June 24, 2019
+% Last modified by dorisli June 26, 2019
+
+defval('webpage','http://geoweb.princeton.edu/people/simons/SOM/P017_030.txt')
+defval('hdcut',0)
 
 % read in and parse the data
 webname = webread(webpage);
-split = strsplit(webname);
+spli = strsplit(webname);
 
-sz = length(split)-1;
 % Number of columns of the data file
 col = 15;
+
+split = spli((hdcut*col)+1:end);
+
+sz = length(split)-1;
 n = sz/col; 
