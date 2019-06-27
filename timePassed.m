@@ -1,4 +1,4 @@
-function [timeElapsed,origin]=timePassed(split,sz,col,n)
+function varargout=timePassed(split,sz,col,n)
 % [timeElapsed,origin]=timePassed(split,sz,col,n)
 % 
 % Input:
@@ -16,7 +16,7 @@ function [timeElapsed,origin]=timePassed(split,sz,col,n)
 % This function gives the time elapsed between the first point (origin)
 % and every other point in the data file. 
 % 
-% Last modified by dorisli on June 25,2019 ver. R2018a
+% Last modified by dorisli on June 25, 2019 ver. R2018a
  
 timeElapsed = zeros(1,n);
 d = strcat(split(2),{' '},split(3));
@@ -29,3 +29,7 @@ for i = (2 + col):col:sz
     timeElapsed(x) = etime(t,origin);
     x = x + 1;
 end 
+
+% optional output
+varns={timeElapsed,origin};
+varargout=varns(1:nargout);

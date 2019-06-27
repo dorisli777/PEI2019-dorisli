@@ -1,4 +1,4 @@
-function [surfaceVel,surVelX,surVelY]=findMermSurVel(dist,distX,distY,timeElapsed,split,sz,col,n)
+function varargout=findMermSurVel(dist,distX,distY,timeElapsed,split,sz,col,n)
 % [surfaceVel,surVelX,surVelY]=findMermSurVel(dist,distX,distY,timeElapsed,split,sz,col,n)
 % 
 % Inputs:
@@ -26,7 +26,7 @@ function [surfaceVel,surVelX,surVelY]=findMermSurVel(dist,distX,distY,timeElapse
 % components at each mermaid location by calculating the velocities between
 % the points that occur on the same day. 
 % 
-% Last modified by dorisli on June 25,2019 ver. R2018a
+% Last modified by dorisli on June 25, 2019 ver. R2018a
 
 surfaceVel = zeros(1,n);
 surVelX = zeros(1,n);
@@ -49,3 +49,7 @@ for i = 1:n
     surVelX(i) = rad2km(surVelX(i));
     surVelY(i) = rad2km(surVelY(i));
 end
+
+% optional output
+varns={surfaceVel,surVelX,surVelY};
+varargout=varns(1:nargout);

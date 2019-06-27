@@ -1,4 +1,4 @@
-function [deepVel,deepVelX,deepVelY]=findMermDeepVel(dist,distX,distY,timeElapsed,split,sz,col,n)
+function varargout=findMermDeepVel(dist,distX,distY,timeElapsed,split,sz,col,n)
 % [deepVel,deepVelX,deepVelY]=findMermDeepVel(dist,distX,distY,timeElapsed,split,sz,col,n)
 % 
 % Inputs:
@@ -26,7 +26,7 @@ function [deepVel,deepVelX,deepVelY]=findMermDeepVel(dist,distX,distY,timeElapse
 % components at each mermaid location by calculating the velocities between
 % the points that occur on different days. 
 % 
-% Last modified by dorisli on June 25,2019 ver. R2018a
+% Last modified by dorisli on June 25, 2019 ver. R2018a
 
 deepVel = zeros(1,n);
 deepVelX = zeros(1,n);
@@ -49,3 +49,7 @@ for i = 1:n
     deepVelX(i) = rad2km(deepVelX(i));
     deepVelY(i) = rad2km(deepVelY(i));
 end
+
+% optional output
+varns={deepVel,deepVelX,deepVelY};
+varargout=varns(1:nargout);

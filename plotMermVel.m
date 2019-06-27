@@ -1,4 +1,4 @@
-function [velocity,surfaceVel,deepVel]=plotMermVel(webpage,hdcut)
+function varargout=plotMermVel(webpage,hdcut)
 % [velocity,surfaceVel,deepVel]=plotMermVel(webpage,hdcut)
 % 
 % Input:
@@ -65,3 +65,7 @@ ylabel('Latitude (in degrees)')
 xlabel('Longitude (in degrees)')
 legend('Mermaid Locations','Surface Velocity (km/s)','Deep Velocity (km/s)')
 hold off
+
+% optional output
+varns={velocity,surfaceVel,deepVel};
+varargout=varns(1:nargout);

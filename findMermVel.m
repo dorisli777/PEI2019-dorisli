@@ -1,5 +1,5 @@
-function [velocity,velX,velY,dist,distX,distY]=findMermVel(timeElapsed,lat,lon,n)
-% [velocity]=findMermVel(webpage);
+function varargout=findMermVel(timeElapsed,lat,lon,n)
+% [velocity,velX,velY,dist,distX,distY]=findMermVel(webpage);
 % 
 % Inputs: 
 % timeElapsed      An array of elapsed times between the origin and each pt
@@ -21,7 +21,7 @@ function [velocity,velX,velY,dist,distX,distY]=findMermVel(timeElapsed,lat,lon,n
 % This function computes the velocity (km/s) and its X and Y components of 
 % each mermaid location based off the initial data point (origin).
 % 
-% Last modified by dorisli on June 25,2019 ver. R2018a
+% Last modified by dorisli on June 25, 2019 ver. R2018a
 
 velocity = zeros(1,n);
 velX = zeros(1,n);
@@ -51,3 +51,7 @@ for i = 1:n
     velX(i) = rad2km(velX(i));
     velY(i) = rad2km(velY(i));
 end
+
+% optional output
+varns={velocity,velX,velY,dist,distX,distY};
+varargout=varns(1:nargout);

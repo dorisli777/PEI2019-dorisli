@@ -1,4 +1,4 @@
-function [split,sz,col,n]=parseMermData(webpage,hdcut)
+function varargout=parseMermData(webpage,hdcut)
 % [split,sz,col,n]=parseMermData(webpage,hdcut)
 % 
 % Input:
@@ -37,3 +37,7 @@ end
 split = spli((hdcut*col)+1:end);
 sz = length(split)-1;
 n = sz/col; 
+
+% optional output
+varns={split,sz,col,n};
+varargout=varns(1:nargout);

@@ -1,4 +1,4 @@
-function [mult]=predictMermMult(webpage,mermaidNum,time,hdcut,numPt,degree)
+function varargout=predictMermMult(webpage,mermaidNum,time,hdcut,numPt,degree)
 % [mult]=predictMermMult(webpage,mermaidNum,time)
 % 
 % Input:
@@ -50,5 +50,10 @@ end
 % average of all scaling factors
 mult = mean(diff);
 disp(sprintf('Scaling factor for error over %i weeks = %d',weeks,mult))
+
+% optional output
+varns={mult};
+varargout=varns(1:nargout);
+
     
 

@@ -1,4 +1,4 @@
-function [plt]=plotMerm(webpage,hdcut)
+function varargout=plotMerm(webpage,hdcut)
 % [plt]=plotMerm(webpage,hdcut)
 %
 % Input:
@@ -29,3 +29,7 @@ title(sprintf('Plot of %s Mermaids (%s to %s)', char(split(1)),...
 ylabel('Latitude (in degrees)')
 xlabel('Longitude (in degrees)')
 legend('Mermaid Locations')
+
+% optional output
+varns={plt};
+varargout=varns(1:nargout);

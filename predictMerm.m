@@ -1,4 +1,4 @@
-function [lonPred,latPred,deltaLon,velPred]=predictMerm(webpage,mermaidNum,time,hdcut,numPt,degree)
+function varargout=predictMerm(webpage,mermaidNum,time,hdcut,numPt,degree)
 % [lonPred,latPred,deltaLon,velPred]=predictMerm(webpage,mermaidNum,time,hdcut)
 % 
 % Inputs:
@@ -157,5 +157,7 @@ disp(sprintf('R^2 value for velocity of Y = %d\n',rVelY))
 % xlabel('Residual Value')
 % ylabel('Abundance')
 
-
+% optional output
+varns={lonPred,latPred,deltaLon,velPred};
+varargout=varns(1:nargout);
 

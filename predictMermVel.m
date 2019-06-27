@@ -1,5 +1,5 @@
-function [velPred,rVel,velXPred,rVelX,velYPred,rVelY]=predictMermVel(webpage,mermaidNum,time,hdcut,numPt,degree)
-% [velPred,rVel]=predictMermVel(webpage,mermaidNum,time,hdcut)
+function varargout=predictMermVel(webpage,mermaidNum,time,hdcut,numPt,degree)
+% [velPred,rVel,velXPred,rVelX,velYPred,rVelY]=predictMermVel(webpage,mermaidNum,time,hdcut)
 % 
 % Input:
 % webpage         The website name with data
@@ -90,3 +90,6 @@ rVelX = 1 - (SVelX.normr/norm(velX(end-numPts:end) -...
 rVelY = 1 - (SVelY.normr/norm(velY(end-numPts:end) -...
     mean(velY(end-numPts:end))))^2;
 
+% optional output
+varns={velPred,rVel,velXPred,rVelX,velYPred,rVelY};
+varargout=varns(1:nargout);

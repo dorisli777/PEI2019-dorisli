@@ -1,4 +1,4 @@
-function [speed,surfaceSpeed,deepSpeed]=findSpeeds(velocity,surfaceVel,deepVel)
+function varargout=findSpeeds(velocity,surfaceVel,deepVel)
 % [speed,speedSur,speedDeep]=findSpeeds(velocity,surfaceVel,deepVel)
 % 
 % Inputs:
@@ -37,3 +37,6 @@ title('Histogram of Speeds of P017')
 ylabel('Abundance of Speed')
 xlabel('Speed (km/s)')
 
+% optional output
+varns={speed,surfaceSpeed,deepSpeed};
+varargout=varns(1:nargout);

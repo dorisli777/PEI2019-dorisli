@@ -1,4 +1,4 @@
-function [lat,lon]=findMermLatLon(webpage,hdcut)
+function varargout=findMermLatLon(webpage,hdcut)
 % [lat,lon]=plotMerm(webpage,hdcut)
 %
 % Input:
@@ -33,3 +33,7 @@ for i = 4:col:sz
     lon(x) = str2double(split(i + 1));
     x = x + 1;
 end
+
+% optional output
+varns={lat,lon};
+varargout=varns(1:nargout);
