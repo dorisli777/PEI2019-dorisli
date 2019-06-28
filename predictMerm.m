@@ -82,14 +82,14 @@ rLat = 1-(SLat.normr/norm(lat(end-numPts:end)-mean(lat(end-numPts:end))))^2;
 disp(sprintf('R^2 value for lat = %d\n',rLat))
 
 % % predicting velocities
-[velPred,rVel,velXPred,rVelX,velYPred,rVelY] = predictMermVel(webpage,mermaidNum,time,hdcut);
-disp(sprintf('Predicted velocity = %s', char(velPred)))
+[velP,rVel,velXP,rVelX,velYP,rVelY] = predictMermVel(webpage,mermaidNum,time,hdcut);
+disp(sprintf('Predicted velocity = %s', velP))
 disp(sprintf('R^2 value for velocity = %d\n',rVel))
 
-disp(sprintf('Predicted velocity of X = %s', char(velXPred)))
+disp(sprintf('Predicted velocity of X = %s', velXP))
 disp(sprintf('R^2 value for velocity of X = %d\n',rVelX))
 
-disp(sprintf('Predicted velocity of Y = %s', char(velYPred)))
+disp(sprintf('Predicted velocity of Y = %s', velYP))
 disp(sprintf('R^2 value for velocity of Y = %d\n',rVelY))
 
 %%%%%%%%%%%%%%%%%%%%%% uncomment to plot graphs %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -127,6 +127,6 @@ disp(sprintf('R^2 value for velocity of Y = %d\n',rVelY))
 % % savepdf(f1,'predicted_lat')
 
 % optional output
-varns={lonP,latP,velPred};
+varns={lonP,latP,velP};
 varargout=varns(1:nargout);
 

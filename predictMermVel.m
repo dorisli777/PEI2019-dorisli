@@ -68,14 +68,9 @@ tim = datevec(time);
 t = etime(tim,origin); 
 
 % predict the velocity based off the given time 
-[velP,deltaVel] = polyval(pVel,t,SVel,muVel);
-velPred = strcat(num2str(velP),{' +/- '},num2str(deltaVel));
-
-[velXP,deltaVelX] = polyval(pVelX,t,SVelX,muVelX);
-velXPred = strcat(num2str(velXP),{' +/- '},num2str(deltaVelX));
-
-[velYP,deltaVelY] = polyval(pVelY,t,SVelY,muVelY);
-velYPred = strcat(num2str(velYP),{' +/- '},num2str(deltaVelY));
+[velP] = polyval(pVel,t,SVel,muVel);
+[velXP] = polyval(pVelX,t,SVelX,muVelX);
+[velYP] = polyval(pVelY,t,SVelY,muVelY);
 
 % calculating R^2 value
 rVel = 1 - (SVel.normr/norm(velocity(end-numPts:end) -...
@@ -86,5 +81,5 @@ rVelY = 1 - (SVelY.normr/norm(velY(end-numPts:end) -...
     mean(velY(end-numPts:end))))^2;
 
 % optional output
-varns={velPred,rVel,velXPred,rVelX,velYPred,rVelY};
+varns={velP,rVel,velXP,rVelX,velYP,rVelY};
 varargout=varns(1:nargout);
