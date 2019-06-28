@@ -9,7 +9,7 @@ function varargout=predictMermVel(webpage,mermaidNum,time,hdcut,numPt,degree)
 %                 (ex: '28-Jun-2019 11:30:00')
 % hdcut           Number of lines to cut off the top of the file (def: 0)
 % numPt           Number of data points to be used in the regression
-%                 (def:20)
+%                 (def:10)
 % degree          The degree of the polynomial fit (def:3)
 % 
 % Outputs: 
@@ -20,18 +20,13 @@ function varargout=predictMermVel(webpage,mermaidNum,time,hdcut,numPt,degree)
 % This function returns the predicted velocity for a mermaid location at a
 % specified time using polyfit. Is called during predictMerm. 
 % 
-% Last modified by dorisli on June 27, 2019 ver. R2018a
+% Last modified by dorisli on June 28, 2019 ver. R2018a
 
 defval('webpage','http://geoweb.princeton.edu/people/simons/SOM/P017_030.txt')
 defval('mermaidNum','P017')
 defval('time','24-Jun-2019 08:44:20')
 defval('hdcut',0) 
-
-% % ask for user input for pts used in regression and order of polynomial 
-% numPt = input('How many points for regression: ');
-% degree = input('Order of polynomial: ');
-
-defval('numPt',20)
+defval('numPt',10)
 defval('degree',3)
 
 numPts = numPt - 1;

@@ -1,5 +1,5 @@
 function varargout=predictMerm(webpage,mermaidNum,time,hdcut,numPt,degree)
-% [lonPred,latPred,deltaLon,velPred]=predictMerm(webpage,mermaidNum,time,hdcut)
+% [lonPred,latPred,velPred]=predictMerm(webpage,mermaidNum,time,hdcut,numPt,degree)
 % 
 % Inputs:
 % webpage         The website name with data
@@ -9,7 +9,7 @@ function varargout=predictMerm(webpage,mermaidNum,time,hdcut,numPt,degree)
 %                 (ex: '28-Jun-2019 11:30:00')
 % hdcut           Number of lines to cut off the top of the file (def: 0)
 % numPt           Number of data points to be used in the regression
-%                 (def:20)
+%                 (def:10)
 % degree          The degree of the polynomial fit (def:3)
 % 
 % example: 
@@ -29,17 +29,12 @@ function varargout=predictMerm(webpage,mermaidNum,time,hdcut,numPt,degree)
 
 defval('webpage','http://geoweb.princeton.edu/people/simons/SOM/P017_030.txt')
 defval('mermaidNum','P017')
-defval('time','24-Jun-2019 08:44:20')
+defval('time','28-Jun-2019 11:30:00')
 defval('hdcut',0) 
-
-% ask for user input for pts used in regression and order of polynomial 
-% numPt = input('How many points for regression: ');
-% degree = input('Order of polynomial: ');
-
 defval('numPt',20)
-defval('degree',3)
+defval('degree',2)
 
-numPts = numPt - 1;
+numPts = numPt-1;
 
 % read in and parse the data
 [split,sz,col,n]=parseMermData(webpage,hdcut);  
@@ -75,13 +70,8 @@ t = etime(tim,origin);
 lonPred = strcat(num2str(lonP),{' +/- '},num2str(deltaLon));
 disp(sprintf('Predicted longitude = %s', char(lonPred)))
 
-% SEM = std(pLon)/sqrt(length(pLon));
-% ts = tinv([0.025,0.975],length(pLon)-1);
-% ci = mean(pLon) + ts*SEM;
-% disp(sprintf('95% confidence interval = %d', ci)
-
 % finding lon correlation coefficent
-rLon = 1 - (SLon.normr/norm(lon(end-numPts:end) - mean(lon(end-numPts:end))))^2;
+rLon = 1-(SLon.normr/norm(lon(end-numPts:end)-mean(lon(end-numPts:end))))^2;
 disp(sprintf('R^2 value for lon = %d\n',rLon))
 
 % latitude predictions
@@ -89,16 +79,11 @@ disp(sprintf('R^2 value for lon = %d\n',rLon))
 latPred = strcat(num2str(latP),{' +/- '},num2str(deltaLat));
 disp(sprintf('Predicted latitude = %s', char(latPred)))
 
-% SEM = std(pLat)/sqrt(length(pLat));
-% ts = tinv([0.025,0.975],length(pLat)-1);
-% ci = mean(pLat) + ts*SEM;
-% disp(sprintf('95% confidence interval = %d', ci)
-
 % finding lat correlation coefficent
-rLat = 1 - (SLat.normr/norm(lat(end-numPts:end) - mean(lat(end-numPts:end))))^2;
+rLat = 1-(SLat.normr/norm(lat(end-numPts:end)-mean(lat(end-numPts:end))))^2;
 disp(sprintf('R^2 value for lat = %d\n',rLat))
 
-% predicting velocities
+% % predicting velocities
 [velPred,rVel,velXPred,rVelX,velYPred,rVelY] = predictMermVel(webpage,mermaidNum,time,hdcut);
 disp(sprintf('Predicted velocity = %s', char(velPred)))
 disp(sprintf('R^2 value for velocity = %d\n',rVel))
@@ -110,54 +95,40 @@ disp(sprintf('Predicted velocity of Y = %s', char(velYPred)))
 disp(sprintf('R^2 value for velocity of Y = %d\n',rVelY))
 
 %%%%%%%%%%%%%%%%%%%%%% uncomment to plot graphs %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% % finding residuals
-% resLon = lon(end-numPts:end)-y1; 
-% resLat = lat(end-numPts:end)-y2;
-% 
-% % plotting Longitude values and fitted line
-% figure(1)
+% f = figure(1);
 % clf
 % 
 % scatter(timeElapsed(end-numPts:end),lon(end-numPts:end),20,'filled');
 % hold on
 % y1 = polyval(pLon,timeElapsed(end-numPts:end),[],muLon);
 % plot(timeElapsed(end-numPts:end),y1);
+% scatter(t,lonP,'filled')
 % title('Plot of Time and Longitude Values')
 % ylabel('Longitude (in degrees)')
 % xlabel('Time (in seconds)')
-% legend('Locations of Mermaids','Fitted line')
+% legend('Locations of Mermaids','Fitted line','Predicted Lon')
 % hold off 
 % 
+% % savepdf(f,'predicted_lon')
+% 
 % % plotting Latitude values and fitted line
-% figure(2)
+% f1 = figure(2);
 % clf
 % 
 % scatter(timeElapsed(end-numPts:end),lat(end-numPts:end),20,'filled');
 % hold on
 % y2 = polyval(pLat,timeElapsed(end-numPts:end),[],muLat);
 % plot(timeElapsed(end-numPts:end), y2);
+% scatter(t,latP,'filled')
 % title('Plot of Time and Latitude Values')
 % ylabel('Latitude (in degrees)')
 % xlabel('Time (in seconds)')
-% legend('Locations of Mermaids','Fitted line')
+% legend('Locations of Mermaids','Fitted line','Predicted Lat')
 % hold off
 % 
-% % plotting residuals 
-% figure(3)
-% clf
-% histogram(resLon)
-% title('Residuals of the Longitide')
-% xlabel('Residual Value')
-% ylabel('Abundance')
-% 
-% figure(4)
-% clf
-% histogram(resLat)
-% title('Residuals of the Latitude')
-% xlabel('Residual Value')
-% ylabel('Abundance')
+% % savepdf(f1,'predicted_lat')
 
 % optional output
-varns={lonPred,latPred,deltaLon,velPred};
+varns={lonP,latP,velPred};
 varargout=varns(1:nargout);
 

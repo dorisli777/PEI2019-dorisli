@@ -1,4 +1,4 @@
-function [filename]=savepdf(fig,filename)
+function varargout=savepdf(fig,filename)
   % [filename]=SAVEPDF(fig,filename)
   %
   % This function prints a figure to .pdf
@@ -10,6 +10,10 @@ function [filename]=savepdf(fig,filename)
   % Output:
   % filename     The output pdf filename 
   % 
-  % Last modified by dorisli on June 17,2019 ver. R2018a
+  % Last modified by dorisli on June 28 ,2019 ver. R2018a
 
-  print(fig,'-dpdf',filename)
+  print(fig,'-dpdf','-bestfit',filename)
+  
+  % Optional Output
+  varns={filename};
+  varargout=varns(1:nargout);
