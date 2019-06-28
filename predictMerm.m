@@ -1,5 +1,5 @@
 function varargout=predictMerm(webpage,mermaidNum,time,hdcut,numPt,degree)
-% [lonPred,latPred,velPred]=predictMerm(webpage,mermaidNum,time,hdcut,numPt,degree)
+% [lonP,latP,velPred]=predictMerm(webpage,mermaidNum,time,hdcut,numPt,degree)
 % 
 % Inputs:
 % webpage         The website name with data
@@ -17,8 +17,8 @@ function varargout=predictMerm(webpage,mermaidNum,time,hdcut,numPt,degree)
 % 'P017','28-Jun-2019 11:30:00',0);
 % 
 % Outputs: 
-% latPred         Predicted latitude of the mermaid
-% lonPred         Predicted longitude of the mermaid
+% latP            Predicted latitude of the mermaid
+% lonP            Predicted longitude of the mermaid
 % velPred         Predicted velocity of the mermaid
 % 
 % Description:
@@ -66,18 +66,16 @@ tim = datevec(time);
 t = etime(tim,origin); 
 
 % longitude predictions 
-[lonP,deltaLon] = polyval(pLon,t,SLon,muLon);
-lonPred = strcat(num2str(lonP),{' +/- '},num2str(deltaLon));
-disp(sprintf('Predicted longitude = %s', char(lonPred)))
+[lonP] = polyval(pLon,t,SLon,muLon);
+disp(sprintf('Predicted longitude = %s', lonP))
 
 % finding lon correlation coefficent
 rLon = 1-(SLon.normr/norm(lon(end-numPts:end)-mean(lon(end-numPts:end))))^2;
 disp(sprintf('R^2 value for lon = %d\n',rLon))
 
 % latitude predictions
-[latP,deltaLat] = polyval(pLat,t,SLat,muLat);
-latPred = strcat(num2str(latP),{' +/- '},num2str(deltaLat));
-disp(sprintf('Predicted latitude = %s', char(latPred)))
+[latP] = polyval(pLat,t,SLat,muLat);
+disp(sprintf('Predicted latitude = %s', latP))
 
 % finding lat correlation coefficent
 rLat = 1-(SLat.normr/norm(lat(end-numPts:end)-mean(lat(end-numPts:end))))^2;

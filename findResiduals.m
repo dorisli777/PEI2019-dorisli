@@ -18,8 +18,8 @@ function varargout=findResiduals(webpage,predFac,hdcut)
 % Last modified by dorisli on June 28, 2019 ver. R2018a
 
 defval('webpage','http://geoweb.princeton.edu/people/simons/SOM/P017_030.txt')
-defval('predFac',5)
-defval('hdcut',0) 
+defval('predFac',2)
+defval('hdcut',0)
 
 % ask for user input for pts used in regression and order of polynomial 
 numPts = input('How many points for regression: ');
