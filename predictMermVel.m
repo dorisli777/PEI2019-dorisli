@@ -26,8 +26,8 @@ defval('webpage','http://geoweb.princeton.edu/people/simons/SOM/P017_030.txt')
 defval('mermaidNum','P017')
 defval('time','24-Jun-2019 08:44:20')
 defval('hdcut',0) 
-defval('numPt',10)
-defval('degree',3)
+defval('numPt',20)
+defval('degree',2)
 
 numPts = numPt - 1;
 
