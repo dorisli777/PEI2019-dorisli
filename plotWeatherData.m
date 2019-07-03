@@ -64,7 +64,7 @@ disp(fitT)
 
 % Fourier transform
 Fs = 1/60;
-[f,Y]=fourierT(Fs,temp);
+[f,P1]=fourierT(Fs,temp);
 
 % plot time and temperature and the fitted line 
 plt = figure(1);
@@ -81,7 +81,7 @@ hold off
 % plot the fourier transformation 
 figure(2);
 clf
-plot(f,abs(Y))
+plot(f,P1)
 title('Single Sided Amplitude Spectrum of Temperature')
 xlabel('Frequency (Hz)')
 ylabel('abs(Y)')
@@ -102,7 +102,7 @@ xlabel('Time (in seconds)')
 ylabel('Sm (in M)')
 
 subplot(4,2,3)
-scatter(time,temp,'filled');
+plot(time,temp);
 title('Temperature and Time ')
 xlabel('Time (in seconds)')
 ylabel('Temperature (in C)')
