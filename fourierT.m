@@ -2,7 +2,7 @@ function varargout=fourierT(Fs,data)
 % [f,Y]=fourierT(Fs,data)
 % 
 % Inputs:
-% Fs          The sampling frequency of the data
+% Fs          The sampling frequency of the data (hz)
 % data        The data to be transformed (or equation) 
 % 
 % Outputs:

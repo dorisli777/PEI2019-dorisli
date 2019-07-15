@@ -1,9 +1,10 @@
-function varargout=plotWeatherData(filename)
-% plt=plotWeatherData(filename,begWeek,endWeek)
+function varargout=plotWeatherData(filename,Fs)
+% plt=plotWeatherData(filename,Fs)
 % 
 % Input:
 % filename      Filename with full path 
 %               (def: '~/Documents/MATLAB/WeatherDataBackup/all.asc')
+% Fs            The signal sampling frequency (Hz) 
 % 
 % Output:
 % plt           Plot of weather data and the fitted Fourier line 
@@ -63,7 +64,7 @@ fitT = fit(double(time),double(temp),'fourier7');
 disp(fitT)
 
 % Fourier transform
-Fs = 1/60;
+defavl('Fs',1/60)
 [f,P1]=fourierT(Fs,temp);
 
 % plot time and temperature and the fitted line 
