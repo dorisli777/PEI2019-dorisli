@@ -17,7 +17,7 @@ function varargout=filtersac(filename,Fs,colo,cohi)
 % 
 % Last modified by dorisli on July 14,2019 ver. R2018a
 
-defval('filename','~/Documents/MINISEED/07/06/PP.S0001.00.HHY.D.2019.187.030000.SAC')
+defval('filename','~/Documents/MINISEED/07/06/PP.S0001.00.HHZ.D.2019.187.030000.SAC')
 
 % reading in and parsing sac file
 [SeisData,HdrData,~,~,tims]=readsac(filename);
@@ -31,7 +31,7 @@ defval('cohi',0.10)
 
 % plot unfiltered data 
 subplot(2,1,1)
-plot(tims,SeisData)
+plot(tims,SeisData);
 
 % Guyot Hall STLO and STLA, check with SAC2SAC, check with HdrData
 lola=guyotphysics(0);
@@ -46,7 +46,7 @@ xlabel(sprintf('time (s) since %4.4i (%3.3i) %2.2i:%2.2i:%2.2i.%3.3i',...
 		  HdrData.NZYEAR,HdrData.NZJDAY,...
 		  HdrData.NZHOUR,HdrData.NZMIN,HdrData.NZSEC,HdrData.NZMSEC));
 axis tight
-longticks(gca,2)
+xlim([1800 3600])
 
 % plot filtered data 
 subplot(2,1,2)
@@ -56,16 +56,16 @@ filt = plot(tims,xf);
 lola=guyotphysics(0);
 
 % Cosmetics and annotation
-title(sprintf('recorded at Princeton University Guyot Hall %s (%10.5f%s,%10.5f%s)',deblank(HdrData.KSTNM),...
+title(sprintf('Filtered: recorded at Princeton University Guyot Hall %s (%10.5f%s,%10.5f%s)',deblank(HdrData.KSTNM),...
 		 lola(1),176,lola(2),176),...
 	         'FontWeight','Normal');
-ylabel(sprintf('uncorrected %s component',...
+ylabel(sprintf('filtered %s component',...
 		  HdrData.KCMPNM));
 xlabel(sprintf('time (s) since %4.4i (%3.3i) %2.2i:%2.2i:%2.2i.%3.3i',...
 		  HdrData.NZYEAR,HdrData.NZJDAY,...
 		  HdrData.NZHOUR,HdrData.NZMIN,HdrData.NZSEC,HdrData.NZMSEC));
 axis tight
-longticks(gca,2)
+xlim([1800 3600])
 
 % Optional Output 
 varns={filt};
