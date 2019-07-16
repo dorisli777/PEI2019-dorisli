@@ -1,5 +1,5 @@
 function varargout=fourierT(Fs,data)
-% [f,Y]=fourierT(Fs,data)
+% [f,P1]=fourierT(Fs,data)
 % 
 % Inputs:
 % Fs          The sampling frequency of the data (hz)
