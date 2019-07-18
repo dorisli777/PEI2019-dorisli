@@ -14,8 +14,9 @@ function varargout=irisSeis(eq,epiDist)
 % 
 % Description:
 % This function takes the time of each event and finds the corresponding
-% file in the specified directory and retrieves the seismic data. Uses
-% mcms2sac.m and mseed2sac. 
+% file in the specified directory and retrieves the seismic data. This 
+% function scales and filters the seismic data as well. Uses mcms2sac.m 
+% and mseed2sac. 
 % 
 % Last modified by dorisli on July 18, 2019 ver R2018a 
 

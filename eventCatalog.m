@@ -21,9 +21,9 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,origi
 % 
 % Last modified by dorisli on July 18, 2019 ver R2018a
 
-defval('minMag',5)
+defval('minMag',4)
 defval('maxMag',10)
-defval('maxRad',30)
+defval('maxRad',20)
 defval('startT','2018-01-01 00:00:00')
 defval('endT','2019-04-30 07:00:00')
 
