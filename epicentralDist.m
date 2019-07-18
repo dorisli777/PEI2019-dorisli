@@ -1,5 +1,5 @@
 function varargout=epicentralDist(eq,originLat,originLon)
-% [epiDist]=epicentralDist(eq,originLat,originLon)
+% epiDist=epicentralDist(eq,originLat,originLon)
 % 
 % Input: 
 % eq           Returned from irisFetch.m; and object containing information

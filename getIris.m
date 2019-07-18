@@ -1,5 +1,5 @@
 function varargout=getIris(minMag,maxMag,radcoord,startT,endT)
-% [eq]=getIris(minMag,maxMag,startT,endT)
+% eq=getIris(minMag,maxMag,startT,endT)
 % 
 % Inputs:
 % minMag       The minimum magnitude of an event
@@ -11,6 +11,7 @@ function varargout=getIris(minMag,maxMag,radcoord,startT,endT)
 % Outputs:
 % eq           Returned from irisFetch.m; and object containing information
 %              on all the events found in database 
+% fig          Figure handle of the map of world with detected seismic events
 % 
 % Description:
 % This function uses irisFetch to find events given the parameters in the
@@ -34,9 +35,9 @@ title(sprintf('Locations of Events from %s to %s (Min Mag: %f and Max Rad: %d)',
     startT,endT,minMag,radcoord(3)))
 hold off
 
-% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/NEWWorldMapEQMag3.png')
+% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/WorldMapEQMag3.png')
 
 % Optional outputs
-varns={eq};
+varns={eq,fig};
 varargout=varns(1:nargout);
 

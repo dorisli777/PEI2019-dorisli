@@ -1,5 +1,5 @@
 function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,originLon)
-% [names,seisData]=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,originLon)
+% [names,seisData,fig]=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,originLon)
 % 
 % Inputs: 
 % minMag       The minimum magnitude of an event
@@ -13,6 +13,8 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,origi
 % Outputs:
 % names        Names of converted *.mat files 
 % seisData     Seismic data of all the recorded events 
+% fig          Figure handle of the plot of seismic data vs time and
+%              epicentral distance
 % 
 % Description:
 % This function creates a catalog of events recorded by a certain 

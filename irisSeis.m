@@ -1,5 +1,5 @@
 function varargout=irisSeis(eq,epiDist)
-% [tt,seisData]=irisSeis(eq,epiDist)
+% [tt,seisData,names]=irisSeis(eq,epiDist)
 % 
 % Input:
 % eq          Returned from irisFetch.m; and object containing information
@@ -11,6 +11,7 @@ function varargout=irisSeis(eq,epiDist)
 % tt          A vector of times in sec (x-axis) corresponding to the 
 %             seismic data
 % seisData    An nxm matrix of all seismic data of each event 
+% names       An array of file names of all seismic data used/converted
 % 
 % Description:
 % This function takes the time of each event and finds the corresponding

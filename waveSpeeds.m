@@ -1,5 +1,5 @@
 function varargout=waveSpeeds(filenameP,filenameS)
-% [fig]=waveSpeeds(filenameP,filenameS)
+% fig=waveSpeeds(filenameP,filenameS)
 % 
 % Inputs:
 % filenameP      Calculated from TAUP, the P wave travel times at distances
