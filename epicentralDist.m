@@ -15,8 +15,8 @@ function varargout=epicentralDist(eq,originLat,originLon)
 % Last modified by dorisli on July 16, 2019 ver R2018a 
 
 % epicentral distance in deg
-epiDist = distance(originLat,originLon,...
-    [eq.PreferredLatitude],[eq.PreferredLongitude]);
+epiDist = deg2km(distance(originLat,originLon,...
+    [eq.PreferredLatitude],[eq.PreferredLongitude]));
 
 % Optional outputs
 varns={epiDist};

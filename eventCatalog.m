@@ -1,7 +1,7 @@
-function varargout=eventCatalog(minMag,maxMag,startT,endT,originLat,originLon)
+function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,originLon)
 % []=eventCatalog(minMag,maxMag,startT,endT,originLat,originLon)
 % 
-% Inuputs: 
+% Inputs: 
 % 
 % 
 % Outputs:
@@ -12,35 +12,48 @@ function varargout=eventCatalog(minMag,maxMag,startT,endT,originLat,originLon)
 % 
 % Last modified by dorisli on July 16, 2019 ver R2018a
 
-defval('minMag',5)
+defval('minMag',3)
 defval('maxMag',10)
-defval('startT','2019-01-13 00:00:00')
-defval('endT','2019-04-30 00:00:00')
+defval('maxRad',20)
+defval('startT','2019-03-00 00:00:00')
+defval('endT','2019-03-10 00:00:00')
 
 % origin defaulted to Princeton's seismometer 
 defval('originLat', 40.3458117)
 defval('originLon', -74.6569256)
 
 % get events from IRIS
-[eq]=getIris(minMag,maxMag,startT,endT);
+radcoord = [originLat,originLon,maxRad];
+[eq]=getIris(minMag,maxMag,radcoord,startT,endT);
 
 % calculate epicentral distances from events to specified origin 
 [epiDist]=epicentralDist(eq,originLat,originLon);
 
-% get p, s, and surface wave speeds from tauP
-[TTP,TTS]=waveSpeeds(eq,epiDist);
-disp(TTP)
-
 % get data from selected seismometer 
-[tims,seisData]=irisSeis(eq);
-% mseed2sac 
+[tt,seisData,names]=irisSeis(eq,epiDist);
 
-% plot seismograms from pton data 
+% plot the data 
+figure(2)
+clf
+plot(seisData,tt)
 
+% create table of data 
+tm=cellstr(reshape([eq.PreferredTime],23,[])');
+rn=(1:length(epiDist));
+T=table(tm,transpose([eq.PreferredLatitude]),transpose([eq.PreferredLongitude]),...
+    transpose([eq.PreferredMagnitudeValue]),transpose(epiDist),...
+    'VariableNames',{'Time','Lat','Lon','Mag','EpiDist'},'RowNames',rn);
+disp(T)
 
-% plot wave speeds on top 
-
+% % plot seismograms from pton data
+% figure(3)
+% clf
+% s_wplot(seisData,{'direction','l2r'},{'deflection',0.9},{'figure','old'}, ...
+%     {'fontsize',13'});
+% title(sprintf('Seismic Activity between %s and %s',startT,endT))
+% ylabel('Time (in sec)')
+% xlabel('')
 
 % Optional outputs
-varns={};
+varns={names,seisData};
 varargout=varns(1:nargout);

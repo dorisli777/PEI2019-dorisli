@@ -1,9 +1,10 @@
-function varargout=getIris(minMag,maxMag,startT,endT)
+function varargout=getIris(minMag,maxMag,radcoord,startT,endT)
 % [eq]=getIris(minMag,maxMag,startT,endT)
 % 
 % Inputs:
 % minMag
 % maxMag
+% radcoord 
 % startT 
 % endT 
 % 
@@ -16,7 +17,7 @@ function varargout=getIris(minMag,maxMag,startT,endT)
 % Last modified by dorisli on July 16, 2019 ver R2018a 
 
 eq = irisFetch.Events('MinimumMagnitude',minMag,'MaximumMagnitude',maxMag,...
-    'startTime',startT,'endTime',endT);
+    'radialcoordinates',radcoord,'startTime',startT,'endTime',endT);
 
 % plot events on world map 
 figure(1)
@@ -26,6 +27,9 @@ load coastlines;
 plotm(coastlat, coastlon);
 hold on
 plotm([eq.PreferredLatitude],[eq.PreferredLongitude],'r*');
+plotm(40.3458117,-74.6569256,'g*');
+title(sprintf('Locations of all Events from %s to %s',startT,endT))
+hold off
 
 % Optional outputs
 varns={eq};
