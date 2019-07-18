@@ -2,14 +2,18 @@ function varargout=waveSpeeds(filenameP,filenameS)
 % [fig]=waveSpeeds(filenameP,filenameS)
 % 
 % Inputs:
-% filenameP
-% filenameS
+% filenameP      Calculated from TAUP, the P wave travel times at distances
+%                0 to 100 degrees (incremented by 10 deg)
+% filenameS      Calculated from TAUP, the S wave travel times at distances
+%                0 to 100 degrees (incremented by 10 deg)
 % 
 % Output:
-% fig 
+% fig            The plot handle of the P and S wave travel times against
+%                distances 
 % 
 % Description:
-% 
+% This function plots the P and S wave travel times (calculated with TAUP) 
+% against distance (in deg). 
 % 
 % Last modified by dorisli on July 17, 2019 ver. R2018a
 

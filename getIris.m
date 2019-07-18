@@ -2,19 +2,21 @@ function varargout=getIris(minMag,maxMag,radcoord,startT,endT)
 % [eq]=getIris(minMag,maxMag,startT,endT)
 % 
 % Inputs:
-% minMag
-% maxMag
-% radcoord 
-% startT 
-% endT 
+% minMag       The minimum magnitude of an event
+% maxMag       The maximum magnitude of an event
+% radcoord     Maximum radial distance around a specified origin
+% startT       Start time to search for events
+% endT         End time to search for events
 % 
 % Outputs:
-% eq 
+% eq           Returned from irisFetch.m; and object containing information
+%              on all the events found in database 
 % 
 % Description:
+% This function uses irisFetch to find events given the parameters in the
+% input. 
 % 
-% 
-% Last modified by dorisli on July 16, 2019 ver R2018a 
+% Last modified by dorisli on July 17, 2019 ver R2018a 
 
 eq = irisFetch.Events('MinimumMagnitude',minMag,'MaximumMagnitude',maxMag,...
     'radialcoordinates',radcoord,'startTime',startT,'endTime',endT);

@@ -1,17 +1,23 @@
 function varargout=irisSeis(eq,epiDist)
-% [tims,seisData]=irisSeis(eq)
+% [tt,seisData]=irisSeis(eq,epiDist)
 % 
 % Input:
-% eq
+% eq          Returned from irisFetch.m; and object containing information
+%             on all the events found in database
+% epiDist     The epicentral distances (in km) between each event and the 
+%             origin
 % 
 % Outputs:
-% tims
-% seisData
+% tt          A vector of times in sec (x-axis) corresponding to the 
+%             seismic data
+% seisData    An nxm matrix of all seismic data of each event 
 % 
 % Description:
+% This function takes the time of each event and finds the corresponding
+% file in the specified directory and retrieves the seismic data. Uses
+% mcms2sac.m and mseed2sac. 
 % 
-% 
-% Last modified by dorisli on July 16, 2019 ver R2018a 
+% Last modified by dorisli on July 17, 2019 ver R2018a 
 
 % pull the data from seismometers with the origin time of the earthquake
 % find data file in computer 
@@ -24,32 +30,15 @@ for i=1:length(eq)
     names{i}=file{1};
 end
 
+% create time vectors 
 tt=linspace(hx.B,hx.E,hx.NPTS);
 
+% scale and add distances to seismic data 
 seisData=zeros(size(seisD));
 for i=1:length(eq)
-    seisData(:,i)=((seisD(:,i)-mean(seisD(:,i)))/sqrt(mean(abs(seisD(:,i))))) + epiDist(i);
+    seisData(:,i)=((seisD(:,i)-...
+        mean(seisD(:,i)))/sqrt(mean(abs(seisD(:,i))))) + epiDist(i);
 end
-
-% for i=1:length(eq)
-%     st = datestr(datenum(eq(i).PreferredTime)-1/48,31);
-%     en = datestr(datenum(eq(i).PreferredTime)+1/24,31);
-%     
-%     trace = irisFetch.Traces('LD','PANJ','*','BHZ',st,en,'includePZ');
-%     e = 24*3600*(datenum(en) - datenum(st));
-%     tt = linspace(0, e, trace.sampleCount);
-% 
-%     seisData(:,i) = trace.data;
-%     disp(i)
-% %     figure(i+1)
-% %     clf
-% %     plot(tt, trace.data);
-% end
-% tims = tt;
-
-% figure(2)
-% clf
-% plot(tims,seisData)
 
 % Optional outputs
 varns={tt,seisData,names};
