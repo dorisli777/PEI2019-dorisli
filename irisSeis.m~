@@ -21,31 +21,30 @@ function varargout=irisSeis(eq,epiDist)
 
 % pull the data from seismometers with the origin time of the earthquake
 % find data file in computer 
-for i=1:length(eq)
-    t = datetime(datenum(eq(i).PreferredTime),'ConvertFrom','datenum');
-    [Y,M,D,H] = datevec(t);
-    [file]=mcms2mat(Y,M,D,H,00,0,0);
-    load(file{1})
-    % filter the data 
-    [x]=bandpass(sx,110,1,2);
-    seisD(:,i)=x;
-    names{i}=file{1};
-end
-
-% create time vectors 
-tt=linspace(hx.B,hx.E,hx.NPTS);
-
 % for i=1:length(eq)
-%     st = datestr(datenum(eq(1).PreferredTime)-1/24,31);
-%     en = datestr(datenum(eq(i).PreferredTime)+2/24,31);
-%     
-%     trace = irisFetch.Traces('LD','PANJ','*','BHZ',st,en,'includePZ');
-%     seisD(:,i)=trace.data;
+%     t = datetime(datenum(eq(i).PreferredTime),'ConvertFrom','datenum');
+%     [Y,M,D,H] = datevec(t);
+%     [file]=mcms2mat(Y,M,D,H,00,0,0);
+%     load(file{1})
+%     % filter the data 
+%     [x]=bandpass(sx,110,2,5);
+%     seisD(:,i)=x;
+%     names{i}=file{1};
 % end
 % 
-% e=(datenum(trace.endTime)-datenum(trace.startTime))*3600*24;
-% tt=linspace(0, e, trace.sampleCount);
-% names=0;
+% % create time vectors 
+% tt=linspace(hx.B,hx.E,hx.NPTS);
+
+for i=1:length(eq)
+    st = datestr(datenum(eq(1).PreferredTime)-1/24,31);
+    en = datestr(datenum(eq(i).PreferredTime)+2/24,31);
+    
+    trace = irisFetch.Traces('LD','PANJ','*','BHZ',st,en,'includePZ');
+    seisD(:,i)=trace.data;
+end
+
+e=(datenum(trace.endTime)-datenum(trae.start))*3600*24;
+tt=linspace(0, e, trace.sampleCount);
 
 % scale and add distances to seismic data 
 seisData=zeros(size(seisD));

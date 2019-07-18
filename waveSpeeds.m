@@ -15,7 +15,7 @@ function varargout=waveSpeeds(filenameP,filenameS)
 % This function plots the P and S wave travel times (calculated with TAUP) 
 % against distance (in deg). 
 % 
-% Last modified by dorisli on July 17, 2019 ver. R2018a
+% Last modified by dorisli on July 18, 2019 ver. R2018a
 
 defval('filenameP','~/Documents/MATLAB/Pwave.txt')
 defval('filenameS','~/Documents/MATLAB/Swave.txt')
@@ -35,7 +35,7 @@ Swave=cell2mat(S);
 xx=linspace(0,100,10);
 
 % plot the waves 
-fig=figure(2);
+fig=figure(3);
 clf
 plot(xx,Pwave)
 hold on
@@ -46,6 +46,8 @@ xlabel('Epicentral Distance (deg)')
 ylabel('Travel Times (sec)')
 legend('P Wave','S Wave')
 hold off
+
+% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/PSWaves.png')
 
 % Optional outputs
 varns={fig};
