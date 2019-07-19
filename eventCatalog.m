@@ -15,6 +15,8 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,origi
 % seisData     Seismic data of all the recorded events 
 % fig          Figure handle of the plot of seismic data vs time and
 %              epicentral distance
+% TTP          The predicted travel times of P waves through TAUP
+% TTS          The predicted travel times of S waves through TAUP
 % 
 % Description:
 % This function creates a catalog of events recorded by a certain 
@@ -23,9 +25,9 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,origi
 % 
 % Last modified by dorisli on July 18, 2019 ver R2018a
 
-defval('minMag',4)
+defval('minMag',3.3)
 defval('maxMag',10)
-defval('maxRad',20)
+defval('maxRad',17)
 defval('startT','2018-01-01 00:00:00')
 defval('endT','2019-04-30 07:00:00')
 
@@ -40,6 +42,9 @@ radcoord = [originLat,originLon,maxRad];
 % calculate epicentral distances from events to specified origin 
 [epiDist]=epicentralDist(eq,originLat,originLon);
 
+% getting P and S wave travel times of each event 
+[TTP,TTS]=waveSpeeds(eq,epiDist);
+
 % get data from selected seismometer 
 [tt,seisData,names]=irisSeis(eq,epiDist);
 
@@ -47,6 +52,9 @@ radcoord = [originLat,originLon,maxRad];
 fig=figure(2);
 clf 
 plot(seisData,tt)
+% hold on 
+% plot(epiDist,TTP)
+% plot(epiDist,TTS)
 grid on
 title(sprintf('Seismic Activity from %s to %s (Min Mag: %f and Max Rad: %d)',...
     startT,endT,minMag,maxRad))
@@ -63,5 +71,5 @@ T=table(tm,transpose([eq.PreferredLatitude]),transpose([eq.PreferredLongitude]),
 disp(T)
 
 % Optional outputs
-varns={names,seisData,fig};
+varns={names,seisData,fig,TTP,TTS};
 varargout=varns(1:nargout);

@@ -25,7 +25,12 @@ function varargout=irisSeis(eq,epiDist)
 % find data file in computer 
 for i=1:length(eq)
     t = datetime(datenum(eq(i).PreferredTime),'ConvertFrom','datenum');
-    [Y,M,D,H] = datevec(t);
+    [Y,M,D,H,MN] = datevec(t);
+    if MN >= 56
+        if H ~= 23
+            H = H + 1;
+        end
+    end
     [file]=mcms2mat(Y,M,D,H,00,0,0);
     load(file{1})
     % filter the data 
