@@ -19,13 +19,13 @@ function varargout=irisSeis(eq,epiDist)
 % function scales and filters the seismic data as well. Uses mcms2sac.m 
 % and mseed2sac. 
 % 
-% Last modified by dorisli on July 18, 2019 ver R2018a 
+% Last modified by dorisli on July 19, 2019 ver R2018a 
 
 % pull the data from seismometers with the origin time of the earthquake
-% find data file in computer 
 for i=1:length(eq)
     t = datetime(datenum(eq(i).PreferredTime),'ConvertFrom','datenum');
     [Y,M,D,H,MN] = datevec(t);
+    % if the data is too close to end of hour, go to next file
     if MN >= 56
         if H ~= 23
             H = H + 1;
@@ -42,6 +42,7 @@ end
 % create time vectors 
 tt=linspace(hx.B,hx.E,hx.NPTS);
 
+%%%%%%%%%%%%%%%%%%%%%%%%% ALTERNATE METHOD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % for i=1:length(eq)
 %     st = datestr(datenum(eq(1).PreferredTime)-1/24,31);
 %     en = datestr(datenum(eq(i).PreferredTime)+2/24,31);
@@ -53,6 +54,7 @@ tt=linspace(hx.B,hx.E,hx.NPTS);
 % e=(datenum(trace.endTime)-datenum(trace.startTime))*3600*24;
 % tt=linspace(0, e, trace.sampleCount);
 % names=0;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % scale and add distances to seismic data 
 seisData=zeros(size(seisD));

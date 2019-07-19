@@ -1,11 +1,13 @@
-function varargout=waveSpeeds(eq,epiDist)
-% [TTP,TTS,fig]=waveSpeeds(filenameP,filenameS)
+function varargout=waveSpeeds(eq,epiDist,minMag,maxRad)
+% [TTP,TTS,fig]=waveSpeeds(eq,epiDist,minMag,maxRad)
 % 
 % Inputs:
 % eq             Returned from irisFetch.m; and object containing information
 %                on all the events found in database
 % epiDist        The epicentral distances (in km) between each event and the 
 %                origin
+% minMag         The minumum magnitude of an event
+% maxRad         Maximum radial distance around a specified origin
 % 
 % Output:
 % TTP            The predicted travel times of P waves through TAUP
@@ -14,18 +16,20 @@ function varargout=waveSpeeds(eq,epiDist)
 %                distances 
 % 
 % Description:
-% This function plots the P and S wave travel times (calculated with TAUP) 
-% against distance (in deg). 
+% This function finds and plots the P and S wave travel times (calculated 
+% with TAUP) of the event depths and distances given by irisFetch. The
+% alternative method allows input of text files and plots a general P and S
+% wave curve at a given depth. 
 % 
 % Last modified by dorisli on July 19, 2019 ver. R2018a
 
-% Find wave speeds of each earthquake / event
 n = length(eq);
 TTP = zeros(1,n);
 TTS = zeros(1,n);
 epiDis = km2deg(epiDist);
 
 for i=1:n
+    % getting P wave travel times from bash script 'tauptimeP'
     [~,tt]=system(sprintf('~/Documents/MATLAB/PEI2019-dorisli/tauptimeP %d %d',...
         eq(i).PreferredDepth,epiDis(i)));
     ttp = strings;
@@ -34,6 +38,7 @@ for i=1:n
     end
     ttp = str2double(ttp);
     TTP(1,i)=ttp;
+    % getting S wave travel times from bash script 'tauptimeS'
     [~,tt]=system(sprintf('~/Documents/MATLAB/PEI2019-dorisli/tauptimeS %d %d',...
        eq(i).PreferredDepth,epiDis(i)));
     tts = strings;
@@ -44,22 +49,27 @@ for i=1:n
     TTS(1,i)=tts;
 end
 
-% plot the waves 
-fig=figure(3);
+% plot the P and S waves 
+TTPs = sort(TTP);
+TTSs = sort(TTS);
+epiDiss = sort(epiDis);
+
+fig=figure(2);
 clf
-plot(epiDis,TTP)
+plot(epiDiss,TTPs)
 hold on
 grid on
-plot(epiDis,TTS)
-title('P and S Wave Travel Times (Min Mag:3.3, Max Rad:17 deg)')
+plot(epiDiss,TTSs)
+title(sprintf('P and S Wave Travel Times (Min Mag:%d, Max Rad:%d deg)',...
+    minMag,maxRad))
 xlabel('Epicentral Distance (deg)')
 ylabel('Travel Times (sec)')
 legend('P Wave','S Wave')
 hold off
 
-% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/PSWavesMAG3.png')
+% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/PSWavesMAG4.png')
 
-%%%%%%%% ALTERNATIVE METHOD %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% ALTERNATIVE METHOD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % defval('filenameP','~/Documents/MATLAB/Pwave.txt')
 % defval('filenameS','~/Documents/MATLAB/Swave.txt')
@@ -90,8 +100,9 @@ hold off
 % ylabel('Travel Times (sec)')
 % legend('P Wave','S Wave')
 % hold off
-
 % saveas(fig,'~/Documents/MATLAB/EQCatalogFig/PSWaves.png')
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Optional outputs
 varns={TTP,TTS,fig};

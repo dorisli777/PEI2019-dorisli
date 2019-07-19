@@ -1,5 +1,6 @@
 function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,originLon)
-% [names,seisData,fig]=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,originLon)
+% [names,seisData,fig,TTP,TTS]=eventCatalog(minMag,maxMag,maxRad,startT,...
+%                              endT,originLat,originLon)
 % 
 % Inputs: 
 % minMag       The minimum magnitude of an event
@@ -23,33 +24,31 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,origi
 % seismometer (origin) given specific parameters as defined in the input. 
 % This function uses irisFetch.m, mcms2mat.m, and mseed2sac. 
 % 
-% Last modified by dorisli on July 18, 2019 ver R2018a
+% Last modified by dorisli on July 19, 2019 ver R2018a
 
-defval('minMag',3.3)
+defval('minMag',7)
 defval('maxMag',10)
-defval('maxRad',17)
+defval('maxRad',180)
 defval('startT','2018-01-01 00:00:00')
 defval('endT','2019-04-30 07:00:00')
-
 % origin defaulted to Princeton's seismometer 
 defval('originLat', 40.3458117)
 defval('originLon', -74.6569256)
 
 % get events from IRIS
-radcoord = [originLat,originLon,maxRad];
-[eq]=getIris(minMag,maxMag,radcoord,startT,endT);
+[eq]=getIris(minMag,maxMag,maxRad,originLat,originLon,startT,endT);
 
 % calculate epicentral distances from events to specified origin 
 [epiDist]=epicentralDist(eq,originLat,originLon);
 
 % getting P and S wave travel times of each event 
-[TTP,TTS]=waveSpeeds(eq,epiDist);
+[TTP,TTS]=waveSpeeds(eq,epiDist,minMag,maxRad);
 
 % get data from selected seismometer 
 [tt,seisData,names]=irisSeis(eq,epiDist);
 
 % plot the data 
-fig=figure(2);
+fig=figure(3);
 clf 
 plot(seisData,tt)
 % hold on 
