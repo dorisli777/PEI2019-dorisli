@@ -1,5 +1,5 @@
 function varargout=waveSpeeds(eq,epiDist,minMag,maxRad)
-% [TTP,TTS,fig]=waveSpeeds(eq,epiDist,minMag,maxRad)
+% [TTPs,TTSs,epiDiss,fig]=waveSpeeds(eq,epiDist,minMag,maxRad)
 % 
 % Inputs:
 % eq             Returned from irisFetch.m; and object containing information
@@ -10,8 +10,9 @@ function varargout=waveSpeeds(eq,epiDist,minMag,maxRad)
 % maxRad         Maximum radial distance around a specified origin
 % 
 % Output:
-% TTP            The predicted travel times of P waves through TAUP
-% TTS            The predicted travel times of S waves through TAUP
+% TTPs           The sorted predicted travel times of P waves through TAUP
+% TTSs           The sorted predicted travel times of S waves through TAUP
+% epiDiss        The sorted epiDists of each event (in deg)
 % fig            The plot handle of the P and S wave travel times against
 %                distances 
 % 
@@ -21,7 +22,7 @@ function varargout=waveSpeeds(eq,epiDist,minMag,maxRad)
 % alternative method allows input of text files and plots a general P and S
 % wave curve at a given depth. 
 % 
-% Last modified by dorisli on July 19, 2019 ver. R2018a
+% Last modified by dorisli on July 22, 2019 ver. R2018a
 
 n = length(eq);
 TTP = zeros(1,n);
@@ -105,5 +106,5 @@ hold off
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Optional outputs
-varns={TTP,TTS,fig};
+varns={TTPs,TTSs,epiDiss,fig};
 varargout=varns(1:nargout);

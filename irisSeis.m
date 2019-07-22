@@ -1,11 +1,15 @@
-function varargout=irisSeis(eq,epiDist)
-% [tt,seisData,names]=irisSeis(eq,epiDist)
+function varargout=irisSeis(eq,epiDist,len,Fs,colo,cohi)
+% [tt,seisData,names]=irisSeis(eq,epiDist,Fs,colo,cohi)
 % 
 % Input:
 % eq          Returned from irisFetch.m; and object containing information
 %             on all the events found in database
 % epiDist     The epicentral distances (in km) between each event and the 
 %             origin
+% len         The length of data plotted since the event time (minutes)
+% Fs          The sampling frequency (Hz)
+% colo        The lower corner frequency (Hz)
+% cohi        The higher corner frequency (Hz)
 % 
 % Outputs:
 % tt          A vector of times in sec (x-axis) corresponding to the 
@@ -19,28 +23,43 @@ function varargout=irisSeis(eq,epiDist)
 % function scales and filters the seismic data as well. Uses mcms2sac.m 
 % and mseed2sac. 
 % 
-% Last modified by dorisli on July 19, 2019 ver R2018a 
+% Last modified by dorisli on July 22, 2019 ver R2018a 
 
 % pull the data from seismometers with the origin time of the earthquake
+rawData = zeros(3600*Fs*2,length(eq));
+seisD = zeros(len*60*Fs,length(eq));
+names = cell(2,length(eq));
+
 for i=1:length(eq)
     t = datetime(datenum(eq(i).PreferredTime),'ConvertFrom','datenum');
-    [Y,M,D,H,MN] = datevec(t);
-    % if the data is too close to end of hour, go to next file
-    if MN >= 56
-        if H ~= 23
-            H = H + 1;
-        end
-    end
+    [Y,M,D,H,MN,S] = datevec(t);
     [file]=mcms2mat(Y,M,D,H,00,0,0);
     load(file{1})
     % filter the data 
-    [x]=bandpass(sx,110,1,2);
-    seisD(:,i)=x;
-    names{i}=file{1};
+    [x]=bandpass(sx,Fs,colo,cohi);
+    rawData(1:3600*Fs,i)=x;
+    names{1,i}=file{1};
+    
+    % download hour after 
+    t = t + 1/24;
+    [Y,M,D,H] = datevec(t);
+    [file]=mcms2mat(Y,M,D,H,00,0,0);
+    load(file{1})
+    % filter the data 
+    [xa]=bandpass(sx,Fs,colo,cohi);
+    rawData((3600*Fs+1):end,i)=xa;
+    names{2,i}=file{1};
+    
+    % clip data: takes points at the event time and 60 min after event time 
+    sec=MN*60+S;
+    st=sec*Fs;
+    en=st+len*60*Fs-1;
+    seisD(:,i) = rawData(st:en,i);
 end
 
-% create time vectors 
-tt=linspace(hx.B,hx.E,hx.NPTS);
+% create time vector
+e=len*60;
+tt=linspace(0,e,e*Fs);
 
 %%%%%%%%%%%%%%%%%%%%%%%%% ALTERNATE METHOD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % for i=1:length(eq)
