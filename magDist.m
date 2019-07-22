@@ -1,19 +1,21 @@
 function varargout=magDist(magnitude,distance)
 % fig=magDist(magnitude,distance)
 %
-% Inputs:
+% INPUTS:
+% 
 % magnitude     An array of observable magnitude values 
 % distance      An array of distances (corresponding to the magnitudes) 
 %               at which the earthquakes were observable (in km)
 %
-% Output: 
+% OUTPUT: 
+% 
 % fig           The plot handle for the relation graph
 % 
 % Description:
 % This function plots the observable magnitude and distance (in km) 
 % relations from a certain seismometer (def: Princeton Guyot Hall). 
 % 
-% Last modified by dorisli on July 19, 2019 ver.R2018a 
+% Last modified by dorisli on July 22, 2019 ver.R2018a 
 
 mag=[7.5,7.3,7,7.1,7.9,7,3.04,4.6,3.4,4.4,5.4,5.9,5.2,8.2,7.5,7.5,3.8,3.04,...
     2.6,5.1,6.6,5.7,5.9,5.7,6.6,6.8,6.2,6.5,7.5,6.8,7,7.1,6.8,7.3,2.3,2.17,...

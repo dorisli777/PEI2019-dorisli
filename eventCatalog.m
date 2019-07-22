@@ -3,7 +3,8 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
 % [names,seisData,fig,TTPs,TTSs]=eventCatalog(minMag,maxMag,maxRad,startT,...
 %                              endT,originLat,originLon,len,Fs,colo,cohi)
 % 
-% Inputs: 
+% INPUTS: 
+% 
 % minMag       The minimum magnitude of an event
 % maxMag       The maximum magnitude of an event
 % maxRad       Maximum radial distance around a specified origin
@@ -16,7 +17,8 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
 % colo         The lower corner frequency (Hz)
 % cohi         The higher corner frequency (Hz)
 % 
-% Outputs:
+% OUTPUTS:
+% 
 % names        Names of converted *.mat files 
 % seisData     Seismic data of all the recorded events 
 % fig          Figure handle of the plot of seismic data vs time and
@@ -36,13 +38,13 @@ defval('maxMag',10)
 defval('maxRad',180)
 defval('startT','2018-01-01 00:00:00')
 defval('endT','2019-04-30 07:00:00')
+% origin defaulted to Princeton's seismometer 
+defval('originLat', 40.3458117)
+defval('originLon', -74.6569256)
 defval('len',60)
 defval('Fs',100)
 defval('colo',0.05)
 defval('cohi',0.5)
-% origin defaulted to Princeton's seismometer 
-defval('originLat', 40.3458117)
-defval('originLon', -74.6569256)
 
 % get events from IRIS
 [eq]=getIris(minMag,maxMag,maxRad,originLat,originLon,startT,endT);

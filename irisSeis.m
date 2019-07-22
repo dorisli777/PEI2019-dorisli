@@ -1,7 +1,8 @@
 function varargout=irisSeis(eq,epiDist,len,Fs,colo,cohi)
-% [tt,seisData,names]=irisSeis(eq,epiDist,Fs,colo,cohi)
+% [tt,seisData,names]=irisSeis(eq,epiDist,len,Fs,colo,cohi)
 % 
-% Input:
+% INPUTS:
+% 
 % eq          Returned from irisFetch.m; and object containing information
 %             on all the events found in database
 % epiDist     The epicentral distances (in km) between each event and the 
@@ -11,10 +12,13 @@ function varargout=irisSeis(eq,epiDist,len,Fs,colo,cohi)
 % colo        The lower corner frequency (Hz)
 % cohi        The higher corner frequency (Hz)
 % 
-% Outputs:
+% OUTPUTS:
+% 
 % tt          A vector of times in sec (x-axis) corresponding to the 
 %             seismic data
-% seisData    An nxm matrix of all seismic data of each event 
+% seisData    An nxm matrix of seismic data of the event, beginning with
+%             data from the time of the event to the specified length of
+%             time
 % names       An array of file names of all seismic data used/converted
 % 
 % Description:

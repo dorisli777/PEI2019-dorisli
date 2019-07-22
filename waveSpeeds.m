@@ -1,7 +1,8 @@
 function varargout=waveSpeeds(eq,epiDist,minMag,maxRad)
 % [TTPs,TTSs,epiDiss,fig]=waveSpeeds(eq,epiDist,minMag,maxRad)
 % 
-% Inputs:
+% INPUTS:
+% 
 % eq             Returned from irisFetch.m; and object containing information
 %                on all the events found in database
 % epiDist        The epicentral distances (in km) between each event and the 
@@ -9,7 +10,8 @@ function varargout=waveSpeeds(eq,epiDist,minMag,maxRad)
 % minMag         The minumum magnitude of an event
 % maxRad         Maximum radial distance around a specified origin
 % 
-% Output:
+% OUTPUTS:
+% 
 % TTPs           The sorted predicted travel times of P waves through TAUP
 % TTSs           The sorted predicted travel times of S waves through TAUP
 % epiDiss        The sorted epiDists of each event (in deg)

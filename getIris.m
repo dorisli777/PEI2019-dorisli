@@ -1,7 +1,8 @@
 function varargout=getIris(minMag,maxMag,maxRad,originLat,originLon,startT,endT)
 % [eq,fig]=getIris(minMag,maxMag,maxRad,originLat,originLon,startT,endT)
 % 
-% Inputs:
+% INPUTS:
+% 
 % minMag       The minimum magnitude of an event
 % maxMag       The maximum magnitude of an event
 % maxRad       Maximum radial distance around a specified origin
@@ -10,7 +11,8 @@ function varargout=getIris(minMag,maxMag,maxRad,originLat,originLon,startT,endT)
 % startT       Start time to search for events
 % endT         End time to search for events
 % 
-% Outputs:
+% OUTPUTS:
+% 
 % eq           Returned from irisFetch.m; and object containing information
 %              on all the events found in database 
 % fig          Figure handle of the map of world with detected seismic events
@@ -19,7 +21,7 @@ function varargout=getIris(minMag,maxMag,maxRad,originLat,originLon,startT,endT)
 % This function uses irisFetch to find events given the parameters in the
 % input. 
 % 
-% Last modified by dorisli on July 19, 2019 ver R2018a 
+% Last modified by dorisli on July 22, 2019 ver R2018a 
 
 radcoord = [originLat,originLon,maxRad];
 eq = irisFetch.Events('MinimumMagnitude',minMag,'MaximumMagnitude',maxMag,...
