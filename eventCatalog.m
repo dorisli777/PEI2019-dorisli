@@ -73,7 +73,7 @@ xlabel('Epicentral Distance (in km)')
 ylabel('Time (in sec)')
 ylim([0,len*60])
 
-% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/NEWEQCatalogMag3.png')
+saveas(fig,'~/Documents/MATLAB/PEI2019-dorisli/EQCatalogMag7.png')
 
 % create table of data 
 tm=cellstr(reshape([eq.PreferredTime],23,[])');
