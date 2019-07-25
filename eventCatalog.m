@@ -1,7 +1,7 @@
 function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
-    originLon,len,Fs,colo,cohi)
+    originLon,len,Fs,colo,cohi,depthMin,depthMax)
 % [names,seisData,fig,TTPs,TTSs]=eventCatalog(minMag,maxMag,maxRad,startT,...
-%                              endT,originLat,originLon,len,Fs,colo,cohi)
+%              endT,originLat,originLon,len,Fs,colo,cohi,depthMin,depthMax)
 % 
 % INPUTS: 
 % 
@@ -16,6 +16,8 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
 % Fs           The sampling frequency (Hz)
 % colo         The lower corner frequency (Hz)
 % cohi         The higher corner frequency (Hz)
+% depthMin 
+% depthMax 
 % 
 % OUTPUTS:
 % 
@@ -31,7 +33,7 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
 % seismometer (origin) given specific parameters as defined in the input. 
 % This function uses irisFetch.m, mcms2mat.m, and mseed2sac. 
 % 
-% Last modified by dorisli on July 22, 2019 ver R2018a
+% Last modified by dorisli on July 23, 2019 ver R2018a
 
 defval('minMag',7)
 defval('maxMag',10)
@@ -44,36 +46,40 @@ defval('originLon', -74.6569256)
 defval('len',60)
 defval('Fs',100)
 defval('colo',0.05)
-defval('cohi',0.5)
+defval('cohi',3)
+defval('depthMin',500)
+defval('depthMax',700)
 
 % get events from IRIS
 [eq]=getIris(minMag,maxMag,maxRad,originLat,originLon,startT,endT);
 
 % calculate epicentral distances from events to specified origin 
-[epiDist]=epicentralDist(eq,originLat,originLon);
+[epiDist]=epicentralDist(eq,originLat,originLon,depthMin,depthMax);
 
 % getting P and S wave travel times of each event 
-[TTPs,TTSs,epiDiss]=waveSpeeds(eq,epiDist,minMag,maxRad);
-epiDists=deg2km(epiDiss);
+[Pwave,Swave,xx]=waveSpeeds(eq,epiDist,minMag,maxRad);
+epiDists=deg2km(xx);
 
 % get data from selected seismometer 
-[tt,seisData,names]=irisSeis(eq,epiDist,len,Fs,colo,cohi);
+[tt,seisData,names]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax);
 
 % plot the data 
 fig=figure(3);
 clf 
 plot(seisData,tt)
 hold on 
-plot(epiDists,TTPs)
-plot(epiDists,TTSs)
+plot(epiDists,Pwave)
+plot(epiDists,Swave)
 grid on
-title(sprintf('Seismic Activity from %s to %s (Min Mag: %f and Max Rad: %d)',...
-    startT,endT,minMag,maxRad))
+title({sprintf('Seismic Activity from %s to %s',startT,endT) ; ...
+    sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f)',minMag,maxRad,colo,cohi)})
 xlabel('Epicentral Distance (in km)')
 ylabel('Time (in sec)')
 ylim([0,len*60])
+m=max(max(seisData))+150;
+xlim([0,m])
 
-saveas(fig,'~/Documents/MATLAB/PEI2019-dorisli/EQCatalogMag7.png')
+% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/MAG7/0.05to3.png')
 
 % create table of data 
 tm=cellstr(reshape([eq.PreferredTime],23,[])');
@@ -83,5 +89,5 @@ T=table(tm,transpose([eq.PreferredLatitude]),transpose([eq.PreferredLongitude]),
 disp(T)
 
 % Optional outputs
-varns={names,seisData,fig,TTPs,TTSs};
+varns={names,seisData,fig,Pwave,Swave};
 varargout=varns(1:nargout);
