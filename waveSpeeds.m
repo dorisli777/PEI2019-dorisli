@@ -24,7 +24,7 @@ function varargout=waveSpeeds(eq,epiDist,minMag,maxRad)
 % alternative method allows input of text files and plots a general P and S
 % wave curve at a given depth. 
 % 
-% Last modified by dorisli on July 23, 2019 ver. R2018a
+% Last modified by dorisli on July 26, 2019 ver. R2018a
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% METHOD ONE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % n = length(eq);
@@ -57,7 +57,7 @@ function varargout=waveSpeeds(eq,epiDist,minMag,maxRad)
 % TTPs = sort(TTP);
 % TTSs = sort(TTS);
 % epiDiss = sort(epiDis);
-% 
+
 % fig=figure(2);
 % clf
 % plot(epiDiss,TTPs)
