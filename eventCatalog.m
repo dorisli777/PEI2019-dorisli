@@ -16,9 +16,9 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
 % Fs           The sampling frequency (Hz)
 % colo         The lower corner frequency (Hz)
 % cohi         The higher corner frequency (Hz)
-% depthMin 
-% depthMax 
-% comp 
+% depthMin     The minimum depth of earthquake (km)
+% depth Max    The maximum depth of earthquake (km)
+% comp         The desired component of seismic data ('X','Y','Z')
 % 
 % OUTPUTS:
 % 

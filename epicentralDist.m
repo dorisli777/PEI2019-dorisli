@@ -7,8 +7,8 @@ function varargout=epicentralDist(eq,originLat,originLon,depthMin,depthMax)
 %              on all the events found in database
 % originLat    Latitude of seismogram being used to pull data from
 % originLon    Longitude of seismogram being used to pull data from
-% depthMin
-% depthMax 
+% depthMin     The minimum depth of earthquake (km)
+% depth Max    The maximum depth of earthquake (km)
 % 
 % OUTPUT:
 % 

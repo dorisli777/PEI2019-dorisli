@@ -5,7 +5,7 @@ function varargout=irisSeisComp(t,MN,S,seisD,rawData,Fs,colo,cohi,index,...
 % 
 % INPUTS:
 % 
-% t 
+% t           
 % MN
 % S 
 % seisD 
@@ -29,7 +29,9 @@ function varargout=irisSeisComp(t,MN,S,seisD,rawData,Fs,colo,cohi,index,...
 % names
 % 
 % Description:
-% 
+% This function is used specifically in conjunction with irisSeis and is
+% not made to be used independently (hence all the input arguments). This
+% function returns either the X, Y, or Z components of seismic data. 
 % 
 % Last modified by dorisli on July 26, 2019 ver. R2018a 
 
