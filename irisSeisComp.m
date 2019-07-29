@@ -5,35 +5,35 @@ function varargout=irisSeisComp(t,MN,S,seisD,rawData,Fs,colo,cohi,index,...
 % 
 % INPUTS:
 % 
-% t           
-% MN
-% S 
-% seisD 
-% rawData 
-% Fs 
-% colo
-% cohi
-% index 
-% names
-% file
-% len
-% comp
-% sx 
-% sy
-% sz 
+% t            The time of the event (in datetime format)
+% MN           The minute of the event (HH:MN:SS)
+% S            The second of th event (HH:MN:S)
+% seisD        Array of seismic data from start time to specified end time
+% rawData      Two hours of seismic data of the event 
+% Fs           The sampling frequency (Hz)
+% colo         The lower corner frequency (Hz)
+% cohi         The higher corner frequency (Hz)
+% index        A counter from a for loop in irisSeis.m
+% names        Array of converted file names 
+% file         The file name returned from mseed2mat.m
+% len          The length of data plotted since the event time (minutes)
+% comp         The desired component of seismic data ('X','Y','Z')
+% sx           The x component of seismic data
+% sy           The y component of seismic data
+% sz           The z component of seismic data
 % 
 % OUTPUTS:
 % 
-% seisD
-% index
-% names
+% seisD        An nxm array of seismic data (each m column is an event)
+% index        A counter from a for loop in irisSeis.m
+% names        Array of converted file names
 % 
 % Description:
 % This function is used specifically in conjunction with irisSeis and is
 % not made to be used independently (hence all the input arguments). This
 % function returns either the X, Y, or Z components of seismic data. 
 % 
-% Last modified by dorisli on July 26, 2019 ver. R2018a 
+% Last modified by dorisli on July 29, 2019 ver. R2018a 
 
 if strcmp(comp,'Y')==1
     % check to make sure file is an hour long 

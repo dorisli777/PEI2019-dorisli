@@ -64,10 +64,14 @@ epiDists=deg2km(xx);
 
 % get data from selected seismometer 
 [tt,seisData,names]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,comp);
+
+% rotate the north and east components
 comp2='X';
 [~,seisDataX]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,comp2);
 comp3='Y';
 [~,seisDataY]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,comp3);
+
+
 
 % plot the data 
 fig=figure(3);
@@ -100,30 +104,11 @@ hold off
 % xlabel('Epicentral Distance (km)')
 % ylabel('Time (sec)')
 % ylim([0,len*60])plot the data 
-fig=figure(3);
-clf 
-plot(seisData,tt)
-hold on 
-plot(epiDists,Pwave0)
-plot(epiDists,Swave0)
-plot(epiDists,Pwave700)
-plot(epiDists,Swave700)
-grid on
-title({sprintf('Seismic Activity HH%s from %s to %s',comp,startT,endT) ; ...
-    sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
-    minMag,maxRad,colo,cohi,depthMin,depthMax)})
-xlabel('Epicentral Distance (km)')
-ylabel('Time (sec)')
-ylim([0,len*60])
-m=max(max(seisData))+150;
-xlim([0,m])
-hold off
-
 % m=max(max(seisData))+150;
 % xlim([0,m])
 % 
 % subplot(3,1,2)
-% plot(seisDataX,tt)
+% plot(r,tt)
 % grid on
 % title({sprintf('Seismic Activity HH%s from %s to %s',comp2,startT,endT) ; ...
 %     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
@@ -135,7 +120,7 @@ hold off
 % xlim([0,m])
 % 
 % subplot(3,1,3)
-% plot(seisDataY,tt)
+% plot(t,tt)
 % grid on
 % title({sprintf('Seismic Activity HH%s from %s to %s',comp3,startT,endT) ; ...
 %     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
