@@ -59,7 +59,7 @@ defval('comp','Z')
 [epiDist]=epicentralDist(eq,originLat,originLon,depthMin,depthMax);
 
 % getting P and S wave travel times of each event 
-[Pwave,Swave,xx]=waveSpeeds(eq,epiDist,minMag,maxRad);
+[Pwave0,Swave0,Pwave700,Swave700,xx]=waveSpeeds(eq,epiDist,minMag,maxRad);
 epiDists=deg2km(xx);
 
 % get data from selected seismometer 
@@ -70,60 +70,81 @@ comp3='Y';
 [~,seisDataY]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,comp3);
 
 % plot the data 
-% fig=figure(3);
-% clf 
-% plot(seisData,tt)
-% hold on 
-% plot(epiDists,Pwave)
-% plot(epiDists,Swave)
-% grid on
-% title({sprintf('Seismic Activity HH%s from %s to %s',comp,startT,endT) ; ...
-%     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
-%     minMag,maxRad,colo,cohi,depthMin,depthMax)})
-% xlabel('Epicentral Distance (in km)')
-% ylabel('Time (in sec)')
-% ylim([0,len*60])
-% m=max(max(seisData))+150;
-% xlim([0,m])
-% hold off
-
 fig=figure(3);
 clf 
-subplot(3,1,1)
 plot(seisData,tt)
+hold on 
+plot(epiDists,Pwave0)
+plot(epiDists,Swave0)
+plot(epiDists,Pwave700)
+plot(epiDists,Swave700)
 grid on
 title({sprintf('Seismic Activity HH%s from %s to %s',comp,startT,endT) ; ...
     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
     minMag,maxRad,colo,cohi,depthMin,depthMax)})
-xlabel('Epicentral Distance (in km)')
-ylabel('Time (in sec)')
+xlabel('Epicentral Distance (km)')
+ylabel('Time (sec)')
 ylim([0,len*60])
 m=max(max(seisData))+150;
 xlim([0,m])
+hold off
 
-subplot(3,1,2)
-plot(seisDataX,tt)
+% fig=figure(3);
+% clf 
+% subplot(3,1,1)
+% plot(seisData,tt)
+% grid on
+% title({sprintf('Seismic Activity HH%s from %s to %s',comp,startT,endT) ; ...
+%     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
+%     minMag,maxRad,colo,cohi,depthMin,depthMax)})
+% xlabel('Epicentral Distance (km)')
+% ylabel('Time (sec)')
+% ylim([0,len*60])plot the data 
+fig=figure(3);
+clf 
+plot(seisData,tt)
+hold on 
+plot(epiDists,Pwave0)
+plot(epiDists,Swave0)
+plot(epiDists,Pwave700)
+plot(epiDists,Swave700)
 grid on
-title({sprintf('Seismic Activity HH%s from %s to %s',comp2,startT,endT) ; ...
+title({sprintf('Seismic Activity HH%s from %s to %s',comp,startT,endT) ; ...
     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
     minMag,maxRad,colo,cohi,depthMin,depthMax)})
-xlabel('Epicentral Distance (in km)')
-ylabel('Time (in sec)')
+xlabel('Epicentral Distance (km)')
+ylabel('Time (sec)')
 ylim([0,len*60])
-m=max(max(seisDataX))+150;
+m=max(max(seisData))+150;
 xlim([0,m])
+hold off
 
-subplot(3,1,3)
-plot(seisDataY,tt)
-grid on
-title({sprintf('Seismic Activity HH%s from %s to %s',comp3,startT,endT) ; ...
-    sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
-    minMag,maxRad,colo,cohi,depthMin,depthMax)})
-xlabel('Epicentral Distance (in km)')
-ylabel('Time (in sec)')
-ylim([0,len*60])
-m=max(max(seisDataY))+150;
-xlim([0,m])
+% m=max(max(seisData))+150;
+% xlim([0,m])
+% 
+% subplot(3,1,2)
+% plot(seisDataX,tt)
+% grid on
+% title({sprintf('Seismic Activity HH%s from %s to %s',comp2,startT,endT) ; ...
+%     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
+%     minMag,maxRad,colo,cohi,depthMin,depthMax)})
+% xlabel('Epicentral Distance (km)')
+% ylabel('Time (sec)')
+% ylim([0,len*60])
+% m=max(max(seisDataX))+150;
+% xlim([0,m])
+% 
+% subplot(3,1,3)
+% plot(seisDataY,tt)
+% grid on
+% title({sprintf('Seismic Activity HH%s from %s to %s',comp3,startT,endT) ; ...
+%     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
+%     minMag,maxRad,colo,cohi,depthMin,depthMax)})
+% xlabel('Epicentral Distance (km)')
+% ylabel('Time (sec)')
+% ylim([0,len*60])
+% m=max(max(seisDataY))+150;
+% xlim([0,m])
 
 % saveas(fig,'~/Documents/MATLAB/EQCatalogFig/MAG7/wavedir/Y.png')
 
@@ -135,5 +156,5 @@ T=table(tm,transpose([eq.PreferredLatitude]),transpose([eq.PreferredLongitude]),
 disp(T)
 
 % Optional outputs
-varns={names,seisData,fig,Pwave,Swave};
+varns={names,seisData,fig,Pwave0,Swave0};
 varargout=varns(1:nargout);

@@ -5,4 +5,4 @@
 # 
 # Calculates first S-wave arrival time in seconds 
 
-taup_time -ph S,Sdiff -h $1 -deg $2 | awk '/ S/ {print $4}' | awk 'NR ==1 {print $1}'
+taup_time -ph S,Sdiff -h $1 -deg $2 | awk '/ S/ || / Sdiff / {print $4}' | awk 'NR ==1 {print $1}'

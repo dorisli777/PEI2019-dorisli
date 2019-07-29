@@ -24,7 +24,7 @@ function varargout=waveSpeeds(eq,epiDist,minMag,maxRad)
 % alternative method allows input of text files and plots a general P and S
 % wave curve at a given depth. 
 % 
-% Last modified by dorisli on July 26, 2019 ver. R2018a
+% Last modified by dorisli on July 29, 2019 ver. R2018a
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% METHOD ONE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % n = length(eq);
@@ -75,19 +75,33 @@ function varargout=waveSpeeds(eq,epiDist,minMag,maxRad)
 
 %%%%%%%%%%%%%%%%%%%%%%%% ALTERNATIVE METHOD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-defval('filenameP','~/Documents/MATLAB/PEI2019-dorisli/Pwave.txt')
-defval('filenameS','~/Documents/MATLAB/PEI2019-dorisli/Swave.txt')
+defval('filenameP0','~/Documents/MATLAB/PEI2019-dorisli/Pwave0.txt')
+defval('filenameS0','~/Documents/MATLAB/PEI2019-dorisli/Swave0.txt')
 
 % Scan and parse data of P and S wave arrival times from TAUP
-fileID = fopen(filenameP);
+fileID = fopen(filenameP0);
 P = textscan(fileID,'%f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f');
 fclose(fileID);
-Pwave = cell2mat(P);
+Pwave0 = cell2mat(P);
 
-fileID = fopen(filenameS);
+fileID = fopen(filenameS0);
 S = textscan(fileID,'%f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f');
 fclose(fileID);
-Swave=cell2mat(S);
+Swave0 = cell2mat(S);
+
+defval('filenameP700','~/Documents/MATLAB/PEI2019-dorisli/Pwave700.txt')
+defval('filenameS700','~/Documents/MATLAB/PEI2019-dorisli/Swave700.txt')
+
+% Scan and parse data of P and S wave arrival times from TAUP
+fileID = fopen(filenameP700);
+P = textscan(fileID,'%f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f');
+fclose(fileID);
+Pwave700 = cell2mat(P);
+
+fileID = fopen(filenameS700);
+S = textscan(fileID,'%f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f %f');
+fclose(fileID);
+Swave700 = cell2mat(S);
 
 % generate epicentral distances (in deg)
 xx=linspace(0,180,19);
@@ -109,5 +123,5 @@ xx=linspace(0,180,19);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Optional outputs
-varns={Pwave,Swave,xx};
+varns={Pwave0,Swave0,Pwave700,Swave700,xx};
 varargout=varns(1:nargout);
