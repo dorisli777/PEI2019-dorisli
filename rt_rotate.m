@@ -47,8 +47,8 @@ function varargout=rt_rotate(vx, vy, theta, delta, plotit)
 exvector = [0, 0; 1, 1; 2, 2; 3, 3; 4, 4; 5, 5];
 defval('vx',exvector(:,1));
 defval('vy',exvector(:,2));
-defval('theta',45);
-defval('plotit',0)
+defval('theta',90);
+defval('plotit',1)
 defval('delta',1);
 
 % Make sure they are column vectors
@@ -112,7 +112,6 @@ else
             msxyBest = msxy;
         end
     end
-
     % set return values to best values
     maxms = msxyBest; 
     vxr = vxBest;
@@ -131,6 +130,8 @@ if plotit == 1
     plot(vxr,vyr)
     axis equal
 end
+disp(vxr)
+disp(vyr)
 
 % Optional Output
 varns={vxr,vyr,maxTheta,maxms};

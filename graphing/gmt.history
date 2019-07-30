@@ -1,0 +1,12 @@
+# GMT 5 Session common arguments shelf
+BEGIN GMT 5.4.4
+B	a0.5f2:Magnitude:
+J	X
+JG	G3.5/50/12c
+JR	R0/12c
+JT	T3.5/50/8c
+JX	X1/1
+R	1/2/1/2
+Y	15
+L	6
+END
