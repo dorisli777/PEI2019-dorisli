@@ -17,7 +17,7 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
 % colo         The lower corner frequency (Hz)
 % cohi         The higher corner frequency (Hz)
 % depthMin     The minimum depth of earthquake (km)
-% depth Max    The maximum depth of earthquake (km)
+% depthMax     The maximum depth of earthquake (km)
 % 
 % OUTPUTS:
 % 
@@ -65,88 +65,19 @@ epiDists=deg2km(xx);
 [tt,seisData,names]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,'Z');
 
 % uncomment to rotate the north and east components
-[seisrotT,seisrotR]=rotate_seis(seisData,az,eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax);
+[seisrotT,seisrotR,seisX,seisY]=rotate_seis(seisData,az,eq,...
+    epiDist,len,Fs,colo,cohi,depthMin,depthMax);
 
 % plot radial and transverse components 
-fig=figure(2);
-clf
-subplot(3,1,1)
-plot(seisData,tt)
-ylim([0,len*60])
-m=max(max(seisData))+150;
-xlim([0,m])
+plotrot(seisData,seisrotT,seisrotR,tt,len)
 
-subplot(3,1,2)
-plot(seisrotT,tt)
-ylim([0,len*60])
-% m=max(max(seisData))+150;
-% xlim([0,m])
+% plot the data 
+plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,epiDists,...
+    len,startT,endT,minMag,maxRad,colo,cohi,depthMin,depthMax)
 
-subplot(3,1,3)
-plot(seisrotR,tt)
-ylim([0,len*60])
-% m=max(max(seisData))+150;
-% xlim([0,m])
-
-% % plot the data 
-% fig=figure(3);
-% clf 
-% plot(seisData,tt)
-% hold on 
-% plot(epiDists,Pwave0)
-% plot(epiDists,Swave0)
-% plot(epiDists,Pwave700)
-% plot(epiDists,Swave700)
-% grid on
-% title({sprintf('Seismic Activity HHZ from %s to %s',startT,endT) ; ...
-%     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
-%     minMag,maxRad,colo,cohi,depthMin,depthMax)})
-% xlabel('Epicentral Distance (km)')
-% ylabel('Time (sec)')
-% ylim([0,len*60])
-% m=max(max(seisData))+150;
-% xlim([0,m])
-% hold off
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% fig=figure(3);
-% clf 
-% subplot(3,1,1)
-% plot(seisData,tt)
-% grid on
-% title({sprintf('Seismic Activity HHZ from %s to %s',startT,endT) ; ...
-%     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
-%     minMag,maxRad,colo,cohi,depthMin,depthMax)})
-% xlabel('Epicentral Distance (km)')
-% ylabel('Time (sec)')
-% ylim([0,len*60])plot the data 
-% m=max(max(seisData))+150;
-% xlim([0,m])
-% 
-% subplot(3,1,2)
-% plot(r,tt)
-% grid on
-% title({sprintf('Seismic Activity HH%s from %s to %s',comp2,startT,endT) ; ...
-%     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
-%     minMag,maxRad,colo,cohi,depthMin,depthMax)})
-% xlabel('Epicentral Distance (km)')
-% ylabel('Time (sec)')
-% ylim([0,len*60])
-% m=max(max(seisDataX))+150;
-% xlim([0,m])
-% 
-% subplot(3,1,3)
-% plot(t,tt)
-% grid on
-% title({sprintf('Seismic Activity HH%s from %s to %s',comp3,startT,endT) ; ...
-%     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
-%     minMag,maxRad,colo,cohi,depthMin,depthMax)})
-% xlabel('Epicentral Distance (km)')
-% ylabel('Time (sec)')
-% ylim([0,len*60])
-% m=max(max(seisDataY))+150;
-% xlim([0,m])
-
-% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/MAG7/wavedir/Y.png')
+% plot the 3 components (unrotated)
+plotseiscomp(seisData,seisX,seisY,tt,len,startT,endT,minMag,maxRad,...
+    colo,cohi,depthMin,depthMax)
 
 % create table of data 
 tm=cellstr(reshape([eq.PreferredTime],23,[])');
@@ -156,5 +87,5 @@ T=table(tm,transpose([eq.PreferredLatitude]),transpose([eq.PreferredLongitude]),
 disp(T)
 
 % Optional outputs
-varns={names,seisData,fig};
+varns={names,seisData};
 varargout=varns(1:nargout);

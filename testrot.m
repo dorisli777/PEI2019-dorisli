@@ -3,20 +3,25 @@ function varargout=testrot(fileX,fileY,fileZ,stla,stlo,evla,evlo)
 % 
 % INPUTS:
 % 
-% fileX
-% fileY
-% fileZ 
-% stla 
-% stlo
-% evla 
-% evlo 
+% fileX     The filename with full path of the X component of seismic data
+% fileY     The filename with full path of the Y component of seismic data
+% fileZ     The filename with full path of the Z component of seismic data
+% stla      The station latitude
+% stlo      The station longitude
+% evla      The event latitude 
+% evlo      The event longitude 
 % 
 % OUPUT:
 % 
-% f 
+% vT        The transverse component 
+% vR        The radial component 
+% f         The figure handle of the three plotted seismograms 
 % 
 % Description:
-% 
+% This function takes in three SAC files (from X,Y,Z components) and
+% rotates the north and east components to return the transverse and radial
+% components of data. It then plots the seismograms. 
+% Used in conjunction with readsac.m 
 % 
 % Last modified by dorisli on August 1, 2019 ver. R2018a 
 
@@ -58,8 +63,9 @@ xlim([1500 3600])
 subplot(3,1,3)
 plot(tims,vR)
 title('Radial Component')
+xlabel('Time (sec)')
 xlim([1500 3600])
 
 % Optional Output
-varns={f};
+varns={vT,vR,f};
 varargout=varns(1:nargout);
