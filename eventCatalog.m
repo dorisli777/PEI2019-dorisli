@@ -1,6 +1,6 @@
 function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
-    originLon,len,Fs,colo,cohi,depthMin,depthMax,comp)
-% [names,seisData,fig,TTPs,TTSs]=eventCatalog(minMag,maxMag,maxRad,startT,...
+    originLon,len,Fs,colo,cohi,depthMin,depthMax)
+% [names,seisData,fig]=eventCatalog(minMag,maxMag,maxRad,startT,...
 %              endT,originLat,originLon,len,Fs,colo,cohi,depthMin,depthMax)
 % 
 % INPUTS: 
@@ -18,7 +18,6 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
 % cohi         The higher corner frequency (Hz)
 % depthMin     The minimum depth of earthquake (km)
 % depth Max    The maximum depth of earthquake (km)
-% comp         The desired component of seismic data ('X','Y','Z')
 % 
 % OUTPUTS:
 % 
@@ -26,15 +25,13 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
 % seisData     Seismic data of all the recorded events 
 % fig          Figure handle of the plot of seismic data vs time and
 %              epicentral distance
-% TTPs         The sorted predicted travel times of P waves through TAUP
-% TTSs         The sorted predicted travel times of S waves through TAUP
 % 
 % Description:
 % This function creates a catalog of events recorded by a certain 
 % seismometer (origin) given specific parameters as defined in the input. 
 % This function uses irisFetch.m, mcms2mat.m, and mseed2sac. 
 % 
-% Last modified by dorisli on July 26, 2019 ver R2018a
+% Last modified by dorisli on August 1, 2019 ver R2018a
 
 defval('minMag',6)
 defval('maxMag',10)
@@ -46,11 +43,10 @@ defval('originLat', 40.3458117)
 defval('originLon', -74.6569256)
 defval('len',60)
 defval('Fs',100)
-defval('colo',0.05)
+defval('colo',1)
 defval('cohi',3)
 defval('depthMin',0)
 defval('depthMax',700)
-defval('comp','Z')
 
 % get events from IRIS
 [eq]=getIris(minMag,maxMag,maxRad,originLat,originLon,startT,endT);
@@ -58,48 +54,39 @@ defval('comp','Z')
 % calculate epicentral distances from events to specified origin 
 [epiDist]=epicentralDist(eq,originLat,originLon,depthMin,depthMax);
 
+% calculate azmiuths of each event to the station
+[az]=rt_azimuth(eq,originLat,originLon,depthMin,depthMax);
+
 % getting P and S wave travel times of each event 
 [Pwave0,Swave0,Pwave700,Swave700,xx]=waveSpeeds(eq,epiDist,minMag,maxRad);
 epiDists=deg2km(xx);
 
 % get data from selected seismometer 
-[tt,seisData,names]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,comp);
+[tt,seisData,names]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,'Z');
 
-% rotate the north and east components
-comp2='X';
-[~,seisDX]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,comp2);
-comp3='Y';
-[~,seisDY]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,comp3);
+% uncomment to rotate the north and east components
+[seisrotT,seisrotR]=rotate_seis(seisData,az,eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax);
 
-seisDataX = zeros(size(seisDX));
-seisDataY = zeros(size(seisDY));
-for i = 1:size(seisData,2)
-    vx=seisDX(:,i);
-    vy=seisDY(:,i);
-    [vxr,vyr]=rotate_seis(vx,vy);
-    seisDataX(:,i)=vxr;
-    seisDataY(:,i)=vyr;
-end
-
+% plot radial and transverse components 
 fig=figure(2);
 clf
 subplot(3,1,1)
-plot(seisDataX,tt)
+plot(seisData,tt)
 ylim([0,len*60])
-% m=max(max(seisData))+150;
-% xlim([0,m])
+m=max(max(seisData))+150;
+xlim([0,m])
 
 subplot(3,1,2)
-plot(seisDataY,tt)
+plot(seisrotT,tt)
 ylim([0,len*60])
 % m=max(max(seisData))+150;
 % xlim([0,m])
 
 subplot(3,1,3)
-plot(seisData,tt)
+plot(seisrotR,tt)
 ylim([0,len*60])
-m=max(max(seisData))+150;
-xlim([0,m])
+% m=max(max(seisData))+150;
+% xlim([0,m])
 
 % % plot the data 
 % fig=figure(3);
@@ -111,7 +98,7 @@ xlim([0,m])
 % plot(epiDists,Pwave700)
 % plot(epiDists,Swave700)
 % grid on
-% title({sprintf('Seismic Activity HH%s from %s to %s',comp,startT,endT) ; ...
+% title({sprintf('Seismic Activity HHZ from %s to %s',startT,endT) ; ...
 %     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
 %     minMag,maxRad,colo,cohi,depthMin,depthMax)})
 % xlabel('Epicentral Distance (km)')
@@ -126,7 +113,7 @@ xlim([0,m])
 % subplot(3,1,1)
 % plot(seisData,tt)
 % grid on
-% title({sprintf('Seismic Activity HH%s from %s to %s',comp,startT,endT) ; ...
+% title({sprintf('Seismic Activity HHZ from %s to %s',startT,endT) ; ...
 %     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
 %     minMag,maxRad,colo,cohi,depthMin,depthMax)})
 % xlabel('Epicentral Distance (km)')
@@ -169,5 +156,5 @@ T=table(tm,transpose([eq.PreferredLatitude]),transpose([eq.PreferredLongitude]),
 disp(T)
 
 % Optional outputs
-varns={names,seisData,fig,Pwave0,Swave0};
+varns={names,seisData,fig};
 varargout=varns(1:nargout);

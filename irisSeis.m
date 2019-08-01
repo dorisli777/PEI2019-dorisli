@@ -30,7 +30,7 @@ function varargout=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,comp)
 % function scales and filters the seismic data as well. Uses mcms2sac.m 
 % and mseed2sac. 
 % 
-% Last modified by dorisli on July 26, 2019 ver R2018a 
+% Last modified by dorisli on August 1, 2019 ver R2018a 
 
 % pull the data from seismometers with the origin time of the earthquake
 rawData = zeros(3600*Fs*2,length(epiDist));
@@ -54,6 +54,17 @@ end
 e=len*60;
 tt=linspace(0,e,e*Fs);
 
+if strcmp(comp,'Z')==1 
+    % scale and add distances to seismic data 
+    seisData=zeros(size(seisD));
+    for i=1:size(seisD,2)
+        seisData(:,i)=((seisD(:,i)-...
+            mean(seisD(:,i)))/sqrt(mean(abs(seisD(:,i))))) + epiDist(i);
+    end
+else 
+    seisData=seisD;
+end
+
 %%%%%%%%%%%%%%%%%%%%%%%%% ALTERNATE METHOD %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % for i=1:length(eq)
 %     st = datestr(datenum(eq(1).PreferredTime)-1/24,31);
@@ -67,13 +78,6 @@ tt=linspace(0,e,e*Fs);
 % tt=linspace(0, e, trace.sampleCount);
 % names=0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% scale and add distances to seismic data 
-seisData=zeros(size(seisD));
-for i=1:size(seisD,2)
-    seisData(:,i)=((seisD(:,i)-...
-        mean(seisD(:,i)))/sqrt(mean(abs(seisD(:,i))))) + epiDist(i);
-end
 
 % Optional outputs
 varns={tt,seisData,names};

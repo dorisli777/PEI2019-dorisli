@@ -41,14 +41,14 @@ function varargout=rt_rotate(vx, vy, theta, delta, plotit)
 %
 % Adapted from Anna Brummen's rotatevec.m
 % Last modified by lmberg@princeton.edu on 07/27/2017
-% Last modified by dorisli@princeton.edu on 07/30/2019
+% Last modified by dorisli@princeton.edu on 08/01/2019
 
 % set default values
 exvector = [0, 0; 1, 1; 2, 2; 3, 3; 4, 4; 5, 5];
 defval('vx',exvector(:,1));
 defval('vy',exvector(:,2));
 defval('theta',90);
-defval('plotit',1)
+defval('plotit',0)
 defval('delta',1);
 
 % Make sure they are column vectors
@@ -130,8 +130,6 @@ if plotit == 1
     plot(vxr,vyr)
     axis equal
 end
-disp(vxr)
-disp(vyr)
 
 % Optional Output
 varns={vxr,vyr,maxTheta,maxms};

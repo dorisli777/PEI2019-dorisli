@@ -33,7 +33,7 @@ function varargout=irisSeisComp(t,MN,S,seisD,rawData,Fs,colo,cohi,index,...
 % not made to be used independently (hence all the input arguments). This
 % function returns either the X, Y, or Z components of seismic data. 
 % 
-% Last modified by dorisli on July 29, 2019 ver. R2018a 
+% Last modified by dorisli on August 1, 2019 ver. R2018a 
 
 if strcmp(comp,'Y')==1
     % check to make sure file is an hour long 
