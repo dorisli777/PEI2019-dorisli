@@ -24,16 +24,19 @@ function varargout=plotseiscomp(seisData,seisX,seisY,tt,...
 % 
 % OUTPUT:
 % 
-% fig         The figure handle of the plot of seismic data and P and S waves 
+% fig         The figure handle of the plot of the three unrotated
+%             seismograms
 % 
 % Description:
-% This function plots the transverse and radial components of seismic data
-% along with the original seismogram (against time).
+% This function plots the three unrotated components of seismic data
+% (X, Y, and Z components) given the parameters in eventCatalog.m 
 % 
 % Last modified by dorisli on August 1, 2019 ver. R2018a 
 
 fig=figure(4);
 clf 
+
+% plot Z component 
 subplot(3,1,1)
 plot(seisData,tt)
 grid on
@@ -46,6 +49,7 @@ ylim([0,len*60])
 m=max(max(seisData))+150;
 xlim([0,m])
 
+% plot X component 
 subplot(3,1,2)
 plot(seisX,tt)
 grid on
@@ -58,6 +62,7 @@ ylim([0,len*60])
 m=max(max(seisX))+150;
 xlim([0,m])
 
+% plot Y component 
 subplot(3,1,3)
 plot(seisY,tt)
 grid on

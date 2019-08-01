@@ -53,11 +53,13 @@ clf
 subplot(3,1,1)
 plot(tims,seisDZ)
 title('Vertical Component')
+xlabel('Time (sec)')
 xlim([1500 3600])
 
 subplot(3,1,2)
 plot(tims,vT)
 title('Transverse Component')
+xlabel('Time (sec)')
 xlim([1500 3600])
 
 subplot(3,1,3)

@@ -27,16 +27,16 @@ function varargout=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,comp)
 % Description:
 % This function takes the time of each event and finds the corresponding
 % file in the specified directory and retrieves the seismic data. This 
-% function scales and filters the seismic data as well. Uses mcms2sac.m 
-% and mseed2sac. 
+% function scales and filters the seismic data as well. 
+% Uses mcms2sac.m and mseed2sac 
 % 
 % Last modified by dorisli on August 1, 2019 ver R2018a 
 
-% pull the data from seismometers with the origin time of the earthquake
 rawData = zeros(3600*Fs*2,length(epiDist));
 seisD = zeros(len*60*Fs,length(epiDist));
 names = cell(2,length(epiDist));
 
+% pull the data from seismometers with the origin time of the earthquake
 index=1;
 for i=1:length(eq)
     if (eq(i).PreferredDepth >= depthMin) && (eq(i).PreferredDepth <= depthMax)
@@ -55,13 +55,14 @@ e=len*60;
 tt=linspace(0,e,e*Fs);
 
 if strcmp(comp,'Z')==1 
-    % scale and add distances to seismic data 
+    % scale and add distances to vertical seismic data 
     seisData=zeros(size(seisD));
     for i=1:size(seisD,2)
-        seisData(:,i)=((seisD(:,i)-...
-            mean(seisD(:,i)))/sqrt(mean(abs(seisD(:,i))))) + epiDist(i);
+        [data]=scaleSeis(seisD(:,i),epiDist(i));
+        seisData(:,i)=data;
     end
 else 
+    % save X and Y components to rotate for later 
     seisData=seisD;
 end
 

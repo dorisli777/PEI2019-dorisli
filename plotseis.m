@@ -27,16 +27,19 @@ function varargout=plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,epiDists
 % 
 % OUTPUT:
 % 
-% fig         The figure handle of the plot of seismic data and P and S waves 
+% fig         The figure handle of the plot of seismic data with P and S
+%             wave arrivals
 % 
 % Description:
-% This function plots the transverse and radial components of seismic data
-% along with the original seismogram (against time).
+% This function plots all the seismic data correlating to the given
+% parameters in eventCatalog.m against epicentral distances. It also plots
+% the predicted P and S wave arrivals between depths of 0 and 700 km. 
 % 
 % Last modified by dorisli on August 1, 2019 ver. R2018a 
 
 fig=figure(3);
 clf 
+
 plot(seisData,tt)
 hold on 
 plot(epiDists,Pwave0)

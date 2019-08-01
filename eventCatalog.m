@@ -22,14 +22,15 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
 % OUTPUTS:
 % 
 % names        Names of converted *.mat files 
-% seisData     Seismic data of all the recorded events 
-% fig          Figure handle of the plot of seismic data vs time and
-%              epicentral distance
+% seisData     Scaled seismic data of all the recorded events 
 % 
 % Description:
 % This function creates a catalog of events recorded by a certain 
 % seismometer (origin) given specific parameters as defined in the input. 
 % This function uses irisFetch.m, mcms2mat.m, and mseed2sac. 
+%
+% IMPORTANT: Run in tcsh shell and setenv MC and setenv EPS as instructed
+%            by mcms2sat.m 
 % 
 % Last modified by dorisli on August 1, 2019 ver R2018a
 
@@ -71,7 +72,7 @@ epiDists=deg2km(xx);
 % plot radial and transverse components 
 plotrot(seisData,seisrotT,seisrotR,tt,len)
 
-% plot the data 
+% plot all the seismograms vs epicentral distance 
 plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,epiDists,...
     len,startT,endT,minMag,maxRad,colo,cohi,depthMin,depthMax)
 
@@ -80,11 +81,7 @@ plotseiscomp(seisData,seisX,seisY,tt,len,startT,endT,minMag,maxRad,...
     colo,cohi,depthMin,depthMax)
 
 % create table of data 
-tm=cellstr(reshape([eq.PreferredTime],23,[])');
-T=table(tm,transpose([eq.PreferredLatitude]),transpose([eq.PreferredLongitude]),...
-    transpose([eq.PreferredMagnitudeValue]),transpose(epiDist),...
-    'VariableNames',{'Time','Lat','Lon','Mag','EpiDist'});
-disp(T)
+iris_table(eq,epiDist)
 
 % Optional outputs
 varns={names,seisData};

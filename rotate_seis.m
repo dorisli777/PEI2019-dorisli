@@ -55,16 +55,16 @@ for i = 1:size(seisData,2)
     seisDataY(:,i)=vyr;
     
     % scale and add distances to rotated data 
-    seisrotT(:,i)=((seisDataX(:,i)-...
-       mean(seisDataX(:,i)))/sqrt(mean(abs(seisDataX(:,i))))) + epiDist(i);
-    seisrotR(:,i)=((seisDataY(:,i)-...
-       mean(seisDataY(:,i)))/sqrt(mean(abs(seisDataY(:,i))))) + epiDist(i);
+    [t]=scaleSeis(seisDataX(:,i),epiDist(i));
+    seisrotT(:,i)=t;
+    [r]=scaleSeis(seisDataY(:,i),epiDist(i));
+    seisrotR(:,i)=r;
    
-   % scale and add distances to unrotated data 
-    seisX(:,i)=((seisDX(:,i)-...
-       mean(seisDX(:,i)))/sqrt(mean(abs(seisDX(:,i))))) + epiDist(i);
-    seisY(:,i)=((seisDY(:,i)-...
-       mean(seisDY(:,i)))/sqrt(mean(abs(seisDY(:,i))))) + epiDist(i);
+    % scale and add distances to unrotated data 
+    [x]=scaleSeis(seisDX(:,i),epiDist(i));
+    seisX(:,i)=x;
+    [y]=scaleSeis(seisDY(:,i),epiDist(i));
+    seisY(:,i)=y;
 end
 
 % Optional Outputs 
