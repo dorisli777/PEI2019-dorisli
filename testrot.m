@@ -68,6 +68,8 @@ title('Radial Component')
 xlabel('Time (sec)')
 xlim([1500 3600])
 
+suptitle(sprintf('California Earthquake %.2f,%.2f on June 6th, 2019 recorded at Guyot Hall %.2f,%.2f at 03:00:00 UTC',evla,evlo,stla,stlo))
+
 % Optional Output
 varns={vT,vR,f};
 varargout=varns(1:nargout);

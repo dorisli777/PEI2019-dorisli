@@ -73,12 +73,12 @@ epiDists=deg2km(xx);
 plotrot(seisData,seisrotT,seisrotR,tt,len)
 
 % plot all the seismograms vs epicentral distance 
-plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,epiDists,...
-    len,startT,endT,minMag,maxRad,colo,cohi,depthMin,depthMax)
+% plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,epiDists,...
+%     len,startT,endT,minMag,maxRad,colo,cohi,depthMin,depthMax)
 
 % plot the 3 components (unrotated)
-plotseiscomp(seisData,seisX,seisY,tt,len,startT,endT,minMag,maxRad,...
-    colo,cohi,depthMin,depthMax)
+% plotseiscomp(seisData,seisX,seisY,tt,len,startT,endT,minMag,maxRad,...
+%     colo,cohi,depthMin,depthMax)
 
 % create table of data 
 iris_table(eq,epiDist)
