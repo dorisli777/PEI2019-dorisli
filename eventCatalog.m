@@ -32,11 +32,11 @@ function varargout=eventCatalog(minMag,maxMag,maxRad,startT,endT,originLat,...
 % IMPORTANT: Run in tcsh shell and setenv MC and setenv EPS as instructed
 %            by mcms2sat.m 
 % 
-% Last modified by dorisli on August 1, 2019 ver R2018a
+% Last modified by dorisli on August 5, 2019 ver R2018a
 
-defval('minMag',6)
+defval('minMag',7)
 defval('maxMag',10)
-defval('maxRad',30)
+defval('maxRad',180)
 defval('startT','2018-01-01 00:00:00')
 defval('endT','2019-04-30 07:00:00')
 % origin defaulted to Princeton's seismometer 
@@ -44,9 +44,9 @@ defval('originLat', 40.3458117)
 defval('originLon', -74.6569256)
 defval('len',60)
 defval('Fs',100)
-defval('colo',1)
-defval('cohi',3)
-defval('depthMin',0)
+defval('colo',0.1)
+defval('cohi',5)
+defval('depthMin',100)
 defval('depthMax',700)
 
 % get events from IRIS
@@ -58,6 +58,9 @@ defval('depthMax',700)
 % calculate azmiuths of each event to the station
 [az]=rt_azimuth(eq,originLat,originLon,depthMin,depthMax);
 
+% get depths of all events 
+[dep]=depths(eq,epiDist,depthMin,depthMax);
+
 % getting P and S wave travel times of each event 
 [Pwave0,Swave0,Pwave700,Swave700,xx]=waveSpeeds(eq,epiDist,minMag,maxRad);
 epiDists=deg2km(xx);
@@ -66,22 +69,22 @@ epiDists=deg2km(xx);
 [tt,seisData,names]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,'Z');
 
 % uncomment to rotate the north and east components
-[seisrotT,seisrotR,seisX,seisY]=rotate_seis(seisData,az,eq,...
-    epiDist,len,Fs,colo,cohi,depthMin,depthMax);
+% [seisrotT,seisrotR,seisX,seisY]=rotate_seis(seisData,az,eq,...
+%     epiDist,len,Fs,colo,cohi,depthMin,depthMax);
 
 % plot radial and transverse components 
-plotrot(seisData,seisrotT,seisrotR,tt,len)
+% plotrot(seisData,seisrotT,seisrotR,tt,len)
 
 % plot all the seismograms vs epicentral distance 
-% plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,epiDists,...
-%     len,startT,endT,minMag,maxRad,colo,cohi,depthMin,depthMax)
+plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,epiDists,...
+     len,startT,endT,minMag,maxRad,colo,cohi,depthMin,depthMax,dep)
 
 % plot the 3 components (unrotated)
 % plotseiscomp(seisData,seisX,seisY,tt,len,startT,endT,minMag,maxRad,...
 %     colo,cohi,depthMin,depthMax)
 
 % create table of data 
-iris_table(eq,epiDist)
+% iris_table(eq,epiDist)
 
 % Optional outputs
 varns={names,seisData};

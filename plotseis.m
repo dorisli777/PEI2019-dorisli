@@ -1,7 +1,7 @@
 function varargout=plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,epiDists,...
-    len,startT,endT,minMag,maxRad,colo,cohi,depthMin,depthMax)
+    len,startT,endT,minMag,maxRad,colo,cohi,depthMin,depthMax,dep)
 % fig=plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,...
-%             len,startT,endT,minMag,maxRad,colo,cohi,depthMin,depthMax)
+%             len,startT,endT,minMag,maxRad,colo,cohi,depthMin,depthMax,dep)
 % 
 % INPUTS:
 % 
@@ -24,6 +24,7 @@ function varargout=plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,epiDists
 % cohi        The higher corner frequency (Hz)
 % depthMin    The minimum depth of earthquake (km)
 % depthMax    The maximum depth of earthquake (km)
+% dep         An array of depths corresponding to the events in eq
 % 
 % OUTPUT:
 % 
@@ -33,19 +34,30 @@ function varargout=plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,epiDists
 % Description:
 % This function plots all the seismic data correlating to the given
 % parameters in eventCatalog.m against epicentral distances. It also plots
-% the predicted P and S wave arrivals between depths of 0 and 700 km. 
+% the predicted P and S wave arrivals between depths of 0 and 700 km. The
+% plot is color coordinated with earthquake depths. 
 % 
-% Last modified by dorisli on August 1, 2019 ver. R2018a 
+% Last modified by dorisli on August 5, 2019 ver. R2018a 
 
 fig=figure(3);
 clf 
 
-plot(seisData,tt)
-hold on 
-plot(epiDists,Pwave0)
-plot(epiDists,Swave0)
-plot(epiDists,Pwave700)
-plot(epiDists,Swave700)
+for i=1:size(seisData,2)
+    cmap=colormap(gca,parula(ceil(max(dep))-floor(min(dep))));
+    c=colorbar();
+    caxis([min(dep) max(dep)]);
+    set(get(c,'Title'),'String','Depths (km)')
+    index=floor(dep(i)-min(dep));
+    if index == 0
+        index=1;
+    end
+    hold on
+    plot(seisData(:,i),tt,'Color',cmap(index,:))
+end
+plot(epiDists,Pwave0,'b')
+plot(epiDists,Swave0,'r--')
+plot(epiDists,Pwave700,'b')
+plot(epiDists,Swave700,'r--')
 grid on
 title({sprintf('Seismic Activity HHZ from %s to %s',startT,endT) ; ...
     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
@@ -55,7 +67,6 @@ ylabel('Time (sec)')
 ylim([0,len*60])
 m=max(max(seisData))+150;
 xlim([0,m])
-hold off
 
 % saveas(fig,'~/Documents/MATLAB/EQCatalogFig/MAG7/wavedir/Y.png')
 
