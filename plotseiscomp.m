@@ -31,7 +31,7 @@ function varargout=plotseiscomp(seisData,seisX,seisY,tt,...
 % This function plots the three unrotated components of seismic data
 % (X, Y, and Z components) given the parameters in eventCatalog.m 
 % 
-% Last modified by dorisli on August 1, 2019 ver. R2018a 
+% Last modified by dorisli on August 5, 2019 ver. R2018a 
 
 fig=figure(4);
 clf 
@@ -44,7 +44,7 @@ title({sprintf('Seismic Activity HHZ from %s to %s',startT,endT) ; ...
     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
     minMag,maxRad,colo,cohi,depthMin,depthMax)})
 xlabel('Epicentral Distance (km)')
-ylabel('Time (sec)')
+ylabel('Time since start of Event (sec)')
 ylim([0,len*60]) 
 m=max(max(seisData))+150;
 xlim([0,m])
@@ -57,7 +57,7 @@ title({sprintf('Seismic Activity HHX from %s to %s',startT,endT) ; ...
     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
     minMag,maxRad,colo,cohi,depthMin,depthMax)})
 xlabel('Epicentral Distance (km)')
-ylabel('Time (sec)')
+ylabel('Time since start of Event (sec)')
 ylim([0,len*60])
 m=max(max(seisX))+150;
 xlim([0,m])
@@ -70,7 +70,7 @@ title({sprintf('Seismic Activity HHY from %s to %s',startT,endT) ; ...
     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
     minMag,maxRad,colo,cohi,depthMin,depthMax)})
 xlabel('Epicentral Distance (km)')
-ylabel('Time (sec)')
+ylabel('Time since start of Event (sec)')
 ylim([0,len*60])
 m=max(max(seisY))+150;
 xlim([0,m])

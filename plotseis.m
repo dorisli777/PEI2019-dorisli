@@ -43,6 +43,7 @@ fig=figure(3);
 clf 
 
 for i=1:size(seisData,2)
+    % create colorbar correlating to depth of earthquake 
     cmap=colormap(gca,parula(ceil(max(dep))-floor(min(dep))));
     c=colorbar();
     caxis([min(dep) max(dep)]);
@@ -52,8 +53,10 @@ for i=1:size(seisData,2)
         index=1;
     end
     hold on
+    % plot seismic data with color bar corresponding to depths
     plot(seisData(:,i),tt,'Color',cmap(index,:))
 end
+% plot P and S wave values 
 plot(epiDists,Pwave0,'b')
 plot(epiDists,Swave0,'r--')
 plot(epiDists,Pwave700,'b')
@@ -63,7 +66,7 @@ title({sprintf('Seismic Activity HHZ from %s to %s',startT,endT) ; ...
     sprintf('(Min Mag: %.2f, Max Rad: %.0f, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
     minMag,maxRad,colo,cohi,depthMin,depthMax)})
 xlabel('Epicentral Distance (km)')
-ylabel('Time (sec)')
+ylabel('Time since start of Event (sec)')
 ylim([0,len*60])
 m=max(max(seisData))+150;
 xlim([0,m])

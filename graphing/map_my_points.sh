@@ -57,7 +57,7 @@ awk '{print $1, $2, $3}' $1 | gmt psxy $proj  -Cchil.cpt -W1p -Sc0.3 -: $o >> $f
 
 # Plot scale + key
 # Notice that there is a warning output on screen because I used old syntax here
-gmt psscale -Cchil.cpt -D${half}c/-1.5c/4c/0.4ch -Np -Ba0.5f2:"Magnitude": $o >>$filename
+gmt psscale -Cchil.cpt -D6c/-1.5c/4c/0.4ch -Np -Ba0.5f2:"Magnitude": $o >>$filename
 
 
 # Finish up  (historical)

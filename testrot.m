@@ -46,7 +46,7 @@ az = azimuth(stla,stlo,evla,evlo);
 % rotate the north and east components 
 [vT,vR]=rt_rotate(seisDX,seisDY,az);
 
-% plot the rotation 
+% plot the rotations
 f=figure(1);
 clf
 
