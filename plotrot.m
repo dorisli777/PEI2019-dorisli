@@ -25,7 +25,7 @@ function varargout=plotrot(seisData,seisrotT,seisrotR,tt,len)
 % along with the original seismogram (against time) within the given
 % parameters in eventCatalog.m 
 % 
-% Last modified by dorisli on August 5, 2019 ver. R2018a 
+% Last modified by dorisli on August 7, 2019 ver. R2018a 
 
 fig=figure(2);
 clf
