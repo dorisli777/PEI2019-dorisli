@@ -23,7 +23,7 @@ function varargout=testrot(fileX,fileY,fileZ,stla,stlo,evla,evlo)
 % components of data. It then plots the seismograms. 
 % Used in conjunction with readsac.m 
 % 
-% Last modified by dorisli on August 5, 2019 ver. R2018a 
+% Last modified by dorisli on August 7, 2019 ver. R2018a 
 
 defval('fileX', '~/Documents/MINISEED/07/06/PP.S0001.00.HHX.D.2019.187.030000.SAC')
 defval('fileY', '~/Documents/MINISEED/07/06/PP.S0001.00.HHY.D.2019.187.030000.SAC')
@@ -47,7 +47,7 @@ az = azimuth(stla,stlo,evla,evlo);
 [vT,vR]=rt_rotate(seisDX,seisDY,az);
 
 % plot the rotations
-f=figure(1);
+f=figure(2);
 clf
 
 subplot(3,1,1)
@@ -55,7 +55,7 @@ plot(tims,seisDZ)
 title('Vertical Component (Rayleigh Waves)')
 xlabel('Time (sec)')
 ylabel('Uncorrected Counts')
-ylim([min(seisDZ)-7000 max(seisDZ)+7000])
+ylim([min(seisDZ)-10000 max(seisDZ)+10000])
 xlim([1500 3600])
 
 subplot(3,1,2)
@@ -63,7 +63,7 @@ plot(tims,vT)
 title('Transverse Component (Love Waves)')
 xlabel('Time (sec)')
 ylabel('Uncorrected Counts')
-ylim([min(vT)-7000 max(vT)+7000])
+ylim([min(vT)-10000 max(vT)+10000])
 xlim([1500 3600])
 
 subplot(3,1,3)
@@ -71,7 +71,7 @@ plot(tims,vR)
 title('Radial Component (Rayleigh Waves)')
 ylabel('Uncorrected Counts')
 xlabel('Time (sec)')
-ylim([min(vR)-7000 max(vR)+7000])
+ylim([min(vR)-10000 max(vR)+10000])
 xlim([1500 3600])
 
 suptitle({sprintf('Ridgecrest 7.1 Earthquake (%.2f,%.2f) on 2019-07-06 03:19:53 UTC',evla,evlo) ;...
