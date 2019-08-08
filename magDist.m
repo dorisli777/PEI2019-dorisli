@@ -34,12 +34,12 @@ fig=figure(4);
 clf
 scatter(distance,magnitude,'Filled')
 grid on
-title('Hearable Earthquakes from Guyot Hall')
+title('Observable Earthquakes from Guyot Hall')
 xlabel('Epicentral Distance (km)')
 ylabel('Magnitude of Event')
 ylim([0 10])
 
-% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/EpiDist.png')
+% saveas(fig,'~/Documents/MATLAB/PEI2019-dorisli/catalog_figures/EpiDist.png')
 
 % Optional Output
 varns={fig};

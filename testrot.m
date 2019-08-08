@@ -15,7 +15,7 @@ function varargout=testrot(fileX,fileY,fileZ,stla,stlo,evla,evlo)
 % 
 % vT        The transverse component 
 % vR        The radial component 
-% f         The figure handle of the three plotted seismograms 
+% fi        The figure handle of the three plotted seismograms 
 % 
 % Description:
 % This function takes in three SAC files (from X,Y,Z components) and
@@ -23,7 +23,7 @@ function varargout=testrot(fileX,fileY,fileZ,stla,stlo,evla,evlo)
 % components of data. It then plots the seismograms. 
 % Used in conjunction with readsac.m 
 % 
-% Last modified by dorisli on August 7, 2019 ver. R2018a 
+% Last modified by dorisli on August 8, 2019 ver. R2018a 
 
 defval('fileX', '~/Documents/MINISEED/07/06/PP.S0001.00.HHX.D.2019.187.030000.SAC')
 defval('fileY', '~/Documents/MINISEED/07/06/PP.S0001.00.HHY.D.2019.187.030000.SAC')
@@ -47,7 +47,7 @@ az = azimuth(stla,stlo,evla,evlo);
 [vT,vR]=rt_rotate(seisDX,seisDY,az);
 
 % plot the rotations
-f=figure(2);
+fig=figure(2);
 clf
 
 subplot(3,1,1)
@@ -77,6 +77,8 @@ xlim([1500 3600])
 suptitle({sprintf('Ridgecrest 7.1 Earthquake (%.2f,%.2f) on 2019-07-06 03:19:53 UTC',evla,evlo) ;...
     sprintf('recorded at Guyot Hall (%.2f,%.2f) at 03:00:00 UTC',stla,stlo)})
 
+% saveas(fig,'~/Documents/MATLAB/PEI2019-dorisli/catalog_figures/RidgecrestRotations.png')
+
 % Optional Output
-varns={vT,vR,f};
+varns={vT,vR,fig};
 varargout=varns(1:nargout);

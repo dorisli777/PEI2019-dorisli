@@ -31,7 +31,7 @@ function varargout=plotseiscomp(seisData,seisX,seisY,tt,...
 % This function plots the three unrotated components of seismic data
 % (X, Y, and Z components) given the parameters in eventCatalog.m 
 % 
-% Last modified by dorisli on August 5, 2019 ver. R2018a 
+% Last modified by dorisli on August 8, 2019 ver. R2018a 
 
 fig=figure(4);
 clf 
@@ -75,7 +75,7 @@ ylim([0,len*60])
 m=max(max(seisY))+150;
 xlim([0,m])
 
-% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/MAG7/wavedir/Y.png')
+% saveas(fig,'~/Documents/MATLAB/PEI2019-dorisli/catalog_figures/3componentsMag7.png')
 
 % Optional outputs
 varns={fig};

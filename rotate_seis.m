@@ -31,7 +31,7 @@ function varargout=rotate_seis(seisData,az,eq,epiDist,len,Fs,colo,cohi,depthMin,
 % east components. It then scales and adds epicentral distances to the
 % data. 
 % 
-% Last modified by dorisli on August 1, 2019 ver. R2018a 
+% Last modified by dorisli on August 8, 2019 ver. R2018a 
 
 % get seismic data from X and Y components 
 comp2='X';
@@ -39,6 +39,7 @@ comp3='Y';
 [~,seisDX]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,comp2);
 [~,seisDY]=irisSeis(eq,epiDist,len,Fs,colo,cohi,depthMin,depthMax,comp3);
 
+% initialize arrays 
 seisDataX = zeros(size(seisDX));
 seisDataY = zeros(size(seisDY));
 seisX = zeros(size(seisDX));

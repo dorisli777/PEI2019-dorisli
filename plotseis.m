@@ -37,7 +37,7 @@ function varargout=plotseis(seisData,Pwave0,Swave0,Pwave700,Swave700,tt,epiDists
 % the predicted P and S wave arrivals between depths of 0 and 700 km. The
 % plot is color coordinated with earthquake depths. 
 % 
-% Last modified by dorisli on August 7, 2019 ver. R2018a 
+% Last modified by dorisli on August 8, 2019 ver. R2018a 
 
 fig=figure(3);
 clf 
@@ -62,8 +62,8 @@ plot(epiDists,Swave0,'r--')
 plot(epiDists,Pwave700,'b')
 plot(epiDists,Swave700,'r--')
 grid on
-title({sprintf('Seismic Activity HHZ from %s to %s',startT,endT) ; ...
-    sprintf('(Min Mag: %.2f, Max Rad: %.0f deg, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
+title({sprintf('Seismic Activity HHZ from %s to %s UTC',startT,endT) ; ...
+    sprintf('(Max Mag: %.2f, Max Rad: %.0f deg, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
     minMag,maxRad,colo,cohi,depthMin,depthMax)})
 xlabel('Epicentral Distance (km)')
 ylabel('Time since start of Event (sec)')
@@ -71,7 +71,7 @@ ylim([0,len*60])
 m=max(max(seisData))+150;
 xlim([0,m])
 
-% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/MAG7/wavedir/Y.png')
+% saveas(fig,'~/Documents/MATLAB/PEI2019-dorisli/catalog_figures/seisDataMag7.png')
 
 % Optional outputs
 varns={fig};

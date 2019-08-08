@@ -21,7 +21,7 @@ function varargout=getIris(minMag,maxMag,maxRad,originLat,originLon,startT,endT)
 % This function uses irisFetch to find events given the parameters in the
 % input. 
 % 
-% Last modified by dorisli on July 22, 2019 ver R2018a 
+% Last modified by dorisli on August 8, 2019 ver R2018a 
 
 radcoord = [originLat,originLon,maxRad];
 eq = irisFetch.Events('MinimumMagnitude',minMag,'MaximumMagnitude',maxMag,...
@@ -36,11 +36,11 @@ plotm(coastlat, coastlon);
 hold on
 plotm([eq.PreferredLatitude],[eq.PreferredLongitude],'r*');
 plotm(originLat,originLon,'g*');
-title(sprintf('Locations of Events from %s to %s (Min Mag: %f and Max Rad: %d)',...
-    startT,endT,minMag,radcoord(3)))
+title({sprintf('Events from %s to %s UTC',startT,endT) ; sprintf('(Max Mag: %.1f and Max Rad: %.0f deg)',...
+    minMag,radcoord(3))})
 hold off
 
-% saveas(fig,'~/Documents/MATLAB/EQCatalogFig/WorldMapEQMag3.png')
+% saveas(fig,'~/Documents/MATLAB/PEI2019-dorisli/catalog_figures/WorldMapEQMag7.png')
 
 % Optional outputs
 varns={eq,fig};

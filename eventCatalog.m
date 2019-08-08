@@ -46,7 +46,7 @@ defval('len',60)
 defval('Fs',100)
 defval('colo',0.1)
 defval('cohi',5)
-defval('depthMin',100)
+defval('depthMin',0)
 defval('depthMax',700)
 
 % get events from IRIS
