@@ -50,7 +50,7 @@ gmt pscoast $proj  -Bx60g60 -By30g30 -N1/0.25p,-  -W0.25p -Glightgreen -Slightbl
 
 # Use awk to extract the columns we want from the data file
 awk '{print $1, $2, $3}' $1 | gmt psxy $proj  -Cchil.cpt -W1p -Sc0.3 -: $o >> $filename
-awk '{print $1, $2, $3}' $2 | gmt psxy $proj  -Cchil.cpt -W1p -Sc0.3 -: $o >> $filename
+awk '{print $1, $2, $3}' $2 | gmt psxy $proj  -Gred -W1p -Sc0.3 -: $o >> $filename
 
 # Label something - an ocean
 # Font information is in the -F flag.
