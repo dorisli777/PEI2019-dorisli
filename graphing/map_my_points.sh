@@ -41,7 +41,7 @@ gmt makecpt -Ccool -T7/9/0.25 -Z | awk '{if ($1 >= 0) print $0}' > chil.cpt
 # Write PS header - so no care is needed for the -K or -O flags later (historical)
 echo 0 0 | gmt psxy -R1/2/1/2 -JX4.25/10 -Sp -K -Y15 > $filename
 
-gmt psbasemap $o $proj -Bg45 -B+t"Events from 2018-01-01 to 2019-04-30 (Max Mag: 7.0 and Max Rad: 180 deg)" >> $filename
+gmt psbasemap $o $proj -Bg45 -B+t"Events from 2018-01-01 to 2019-04-30 (Min Mag: 7.0 and Max Rad: 180 deg)" >> $filename
 
 # The -A flag determines complexity of small features
 gmt pscoast $proj  -Bx60g60 -By30g30 -N1/0.25p,-  -W0.25p -Glightgreen -Slightblue -W0.25p $o -A0/0/1 >> $filename
