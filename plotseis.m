@@ -63,7 +63,7 @@ plot(epiDists,Pwave700,'b')
 plot(epiDists,Swave700,'r--')
 grid on
 title({sprintf('Seismic Activity HHZ from %s to %s UTC',startT,endT) ; ...
-    sprintf('(Max Mag: %.2f, Max Rad: %.0f deg, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
+    sprintf('(Min Mag: %.2f, Max Rad: %.0f deg, Filter: %.2f to %.2f, Depth: %.0f to %.0f km)',...
     minMag,maxRad,colo,cohi,depthMin,depthMax)})
 xlabel('Epicentral Distance (km)')
 ylabel('Time since start of Event (sec)')
@@ -71,7 +71,7 @@ ylim([0,len*60])
 m=max(max(seisData))+150;
 xlim([0,m])
 
-% saveas(fig,'~/Documents/MATLAB/PEI2019-dorisli/catalog_figures/seisDataMag7.png')
+saveas(fig,'~/Documents/MATLAB/PEI2019-dorisli/catalog_figures/seisDataMag7.png')
 
 % Optional outputs
 varns={fig};
