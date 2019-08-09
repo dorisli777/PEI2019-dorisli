@@ -40,7 +40,7 @@ title({sprintf('Events from %s to %s UTC',startT,endT) ; sprintf('(Min Mag: %.1f
     minMag,radcoord(3))})
 hold off
 
-saveas(fig,'~/Documents/MATLAB/PEI2019-dorisli/catalog_figures/WorldMapEQMag7.png')
+% saveas(fig,'~/Documents/MATLAB/PEI2019-dorisli/catalog_figures/WorldMapEQMag7.png')
 
 % Optional outputs
 varns={eq,fig};
